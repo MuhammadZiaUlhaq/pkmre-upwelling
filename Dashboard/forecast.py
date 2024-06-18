@@ -26,7 +26,7 @@ def app():
     models = [load_model(path) for path in model_paths]
 
     # Data Historis Banjir
-    df = load_data("data/cilacap_hujan.csv")
+    df = load_data("Dashboard/data/cilacap_hujan.csv")
     df['date'] = pd.to_datetime(df['date'])
     df.set_index(['date'], inplace=True)
 
