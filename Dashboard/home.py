@@ -30,7 +30,7 @@ def app():
     st.info("Semua data curah hujan diukur dalam satuan mm/jam.")
 
     # Load Dataset
-    df = load_data("data/cilacap_hujan.csv")
+    df = load_data("Dashboard/data/cilacap_hujan.csv")
 
     # Data Historis Banjir
     df_class = df.copy()
