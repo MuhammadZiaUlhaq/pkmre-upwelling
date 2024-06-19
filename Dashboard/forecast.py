@@ -8,7 +8,7 @@ import joblib
 
 # Load model machine learning
 def load_model(model_path):
-    model = joblib.load('models/forecast/' + model_path)
+    model = joblib.load('Dashboard/models/forecast/' + model_path)
     return model
 
 def app():
@@ -26,7 +26,7 @@ def app():
     models = [load_model(path) for path in model_paths]
 
     # Data Historis Banjir
-    df = load_data("data/cilacap_hujan.csv")
+    df = load_data("Dashboard/data/cilacap_hujan.csv")
     df['date'] = pd.to_datetime(df['date'])
     df.set_index(['date'], inplace=True)
 
