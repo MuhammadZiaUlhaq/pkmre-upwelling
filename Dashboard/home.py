@@ -25,9 +25,6 @@ def app():
     # Load Dataset
 <<<<<<< HEAD
     df = load_data("Dashboard\data\HASIL CLUSTERING.csv")
-=======
-    df = load_data("Dashboard/data/cilacap_hujan.csv")
->>>>>>> 2290befacbef9b06643438728239445e4b4bbf03
 
     # Data Historis Banjir
     df_class = df.copy()
