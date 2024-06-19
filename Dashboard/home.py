@@ -18,19 +18,12 @@ def plot_rainfall_line(df):
 
 def app():
     # Judul dan Informasi mengenai Dasboard
-    st.title("Dashboard Pemantauan dan Prediksi Banjir Berbasis Curah Hujan di Kabupaten Cilacap :thunder_cloud_and_rain:")
-    st.write("Selamat datang di Dashboard Pemantauan dan Prediksi Banjir Berbasis Curah Hujan di **Kabupaten Cilacap**! "
-            "Kabupaten Cilacap, Jawa Tengah, sering mengalami masalah banjir, khususnya dalam rentang waktu tahun 2020-2023. " 
-            "Dengan menggabungkan data kejadian banjir dari **BNPB** dan informasi curah hujan harian dari **WorldWeatherOnline**, " 
-            "kami menciptakan solusi prediktif berupa dashboard ini. Kami menganalisis curah hujan, membuat model forecast,"
-            "dan memvisualisasikannya agar dapat memberikan pemahaman yang lebih baik mengenai potensi risiko banjir. " 
-            "Dengan fitur-fitur seperti data historis, forecast, dan prediksi kejadian banjir, kami berharap " 
-            "dashboard ini dapat menjadi alat yang berguna dalam menghadapi tantangan banjir di **Kabupaten Cilacap**."
+    st.title("Dashboard Pemantauan dan Prediksi Upwelling Berbasis Indikator Iklim di Danau Laut Tawar")
+    st.write("Selamat datang di Dashboard Pemantauan dan Prediksi Upwelling berbasis indikator iklim Danau Laut Tawar! Masyarakat setempat memanfaatkan danau ini sebagai salah satu sumber mata pencaharian utama. Dengan manggabungkan data Dalam setahun, potensi produksi ikan di Danau Laut Tawar dapat mencapai 196 ton. Angka ini cukup fantastis dan menunjukkan betapa pentingnya peran Danau Laut Tawar dalam menyokong ekonomi lokal serta menyediakan pangan bagi masyarakat setempat. Namun, perubahan iklim yang tidak menentu mengganggu kestabilan produksi ikan di Danau Laut Tawar. Salah satu faktor penyebabnya adalah fenomena upwelling. Pada tahun 2017, fenomena ini pernah merugikan pembudidaya Keramba Jaring Apung (KJA) di Danau Laut Tawar, higga mengakibatkan kerugian mencapai ratusan juta rupiah."
             )
-    st.info("Semua data curah hujan diukur dalam satuan mm/jam.")
 
     # Load Dataset
-    df = load_data("data/cilacap_hujan.csv")
+    df = load_data("Dashboard\data\HASIL CLUSTERING.csv")
 
     # Data Historis Banjir
     df_class = df.copy()
@@ -43,34 +36,32 @@ def app():
     filtered_df_class = df_class.loc[start_date:end_date]
 
     # Menampilkan Data Historis Banjir
-    st.header("Data Historis Kejadian Banjir")
+    st.header("Deskripsi kolom dari table tersebut")
     st.write(filtered_df_class)
 
     # Menampilkan penjelasan dari struktur data
     st.markdown("Deskripsi kolom dari tabel tersebut adalah:")   
-    kolomdesc = '\n1.  date\t: Merupakan kolom yang mencatat tanggal dimana data curah hujan dicatat\
-                 \n2.  Kejadian\t: Merupakan status kejadian banjir atau tidak\
-                 \n3.  hujan_0\t: Menunjukkan curah hujan (mm) pada jam 00:00\
-                 \n4.  hujan_300\t: Menunjukkan curah hujan (mm) pada jam 03:00\
-                 \n5.  hujan_600\t: Menunjukkan curah hujan (mm) pada jam 06:00\
-                 \n6.  hujan_900\t: Menunjukkan curah hujan (mm) pada jam 09:00\
-                 \n7.  hujan_1200\t: Menunjukkan curah hujan (mm) pada jam 12:00\
-                 \n8.  hujan_1500\t: Menunjukkan curah hujan (mm) pada jam 15:00\
-                 \n9.  hujan_2100\t: Menunjukkan curah hujan (mm) pada jam 21:00\
-                 \n10. min_hujan\t: Menunjukkan curah hujan (mm) minimum\
-                 \n10. max_hujan\t: Menunjukkan curah hujan (mm) maksimum\
-                 \n10. avg_hujan\t: Menunjukkan rata-rata curah hujan (mm)'
+    kolomdesc = '\n1.  date\t: Merupakan kolom yang mencatat tanggal indickator iklim dicatat\
+                 \n2.  ALLSKY_KT\t: Indeks kejernihan insolasi langit\
+                 \n3.  T2M\t: Suhu udara rata-rata pada ketinggian 2 meter (°C)\
+                 \n4.  TS\t: Suhu rata-rata di permukaan bumi (°C)\
+                 \n5.  PRECTOTCORR\t: Curah hujan (mm)\
+                 \n6.  PS\t: Rata-rata tekanan permukaan di permukaan bumi (kPA)\
+                 \n7.  WS10M\t: Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)\
+                 \n8.  Status\t: Menunjukkan curah hujan (mm) pada jam 15:00\
+                 \n9.  hujan_2100\t: Potensi Kejadian Upwelling\
+                 \n10. min_hujan\t: Potensi Kejadian Upwelling'
     st.text(kolomdesc)    
     
     # Menampilkan Plot Kejadian "Banjir" dan "Tidak Banjir" 
     fig = go.Figure()
-    for kejadian, color in zip(filtered_df_class['Kejadian'].unique(), ['green', 'red']):  # Choose your preferred colors
-        filtered_df = filtered_df_class[filtered_df_class['Kejadian'] == kejadian]
-        fig.add_trace(go.Scatter(x=filtered_df.index, y=filtered_df['max_hujan'],
-                             mode='lines+markers', name=kejadian, line=dict(color=color)))
-    fig.update_layout(title='Kejadian Banjir vs Tidak Banjir berdasarkan Curah Hujan Maksimum',
+    for Status, color in zip(filtered_df_class['Status'].unique(), ['green', 'red']):  # Choose your preferred colors
+        filtered_df = filtered_df_class[filtered_df_class['Status'] == Status]
+        fig.add_trace(go.Scatter(x=filtered_df.index, y=filtered_df['PRECTOTCORR'],
+                             mode='lines+markers', name=Status, line=dict(color=color)))
+    fig.update_layout(title='Potensi Upwelling vs Tidak Berpotensi Upwelling berdasarkan Indikator Iklim',
                   xaxis_title='Date',
-                  yaxis_title='max_hujan',
+                  yaxis_title='PRECTOTCORR',
                   template='plotly_dark')
     st.plotly_chart(fig, use_container_width=True)
 
