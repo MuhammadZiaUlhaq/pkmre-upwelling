@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-
+from web_function import preprocess_dataframe, load_data
 import home, forecast, predict, about
 
 st.set_page_config(
