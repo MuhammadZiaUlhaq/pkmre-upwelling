@@ -6,13 +6,13 @@ import plotly.graph_objects as go
 
 def plot_rainfall_line(df):
     fig = go.Figure()
-    for event_type in df['Kejadian'].unique():
-        event_data = df[df['Kejadian'] == event_type]
-        fig.add_trace(go.Scatter(x=event_data.index, y=event_data['avg_hujan'],
+    for event_type in df['Status'].unique():
+        event_data = df[df['Status'] == event_type]
+        fig.add_trace(go.Scatter(x=event_data.index, y=event_data['PRECTOTCORR'],
                                  mode='lines', name=event_type))
     fig.update_layout(title='Average Rainfall Over Time',
                       xaxis_title='Date',
-                      yaxis_title='Average Rainfall (mm)',
+                      yaxis_title='PRECTOTCORR',
                       template='plotly_dark')
     return fig
 
@@ -23,13 +23,12 @@ def app():
             )
 
     # Load Dataset
-<<<<<<< HEAD
     df = load_data("Dashboard\data\HASIL CLUSTERING.csv")
 
     # Data Historis Banjir
     df_class = df.copy()
-    df_class['date'] = pd.to_datetime(df_class['date'])
-    df_class.set_index('date', inplace=True)
+    df_class['DATE'] = pd.to_datetime(df_class['DATE'])
+    df_class.set_index('DATE', inplace=True)
 
     # Pemfilteran Data Berdasarkan Range Waktu
     date_range = st.date_input("Pilih Rentang Waktu", [df_class.index.min(), df_class.index.max()], key="date_range")
@@ -42,7 +41,7 @@ def app():
 
     # Menampilkan penjelasan dari struktur data
     st.markdown("Deskripsi kolom dari tabel tersebut adalah:")   
-    kolomdesc = '\n1.  date\t: Merupakan kolom yang mencatat tanggal indickator iklim dicatat\
+    kolomdesc = '\n1.  DATE\t: Merupakan kolom yang mencatat tanggal indickator iklim dicatat\
                  \n2.  ALLSKY_KT\t: Indeks kejernihan insolasi langit\
                  \n3.  T2M\t: Suhu udara rata-rata pada ketinggian 2 meter (°C)\
                  \n4.  TS\t: Suhu rata-rata di permukaan bumi (°C)\
@@ -65,7 +64,7 @@ def app():
                   yaxis_title='PRECTOTCORR',
                   template='plotly_dark')
     st.plotly_chart(fig, use_container_width=True)
-
+'''
     # Data Historis Curah Hujan
     st.header("Data Historis Curah Hujan")
     df_time = df.drop(columns=['Kejadian','min_hujan', 'max_hujan', 'avg_hujan'])
@@ -130,6 +129,6 @@ def app():
 
 
 
-
+'''
 
             
