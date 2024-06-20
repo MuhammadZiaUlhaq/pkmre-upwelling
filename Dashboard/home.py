@@ -52,16 +52,17 @@ def app():
     # Menampilkan penjelasan dari struktur data
     st.markdown("Description of the columns from the table:")
     kolomdesc = '\n1.  DATE\t: Records the date climate indicators were recorded\
-                 \n2.  ALLSKY_KT\t: Insolation clarity index of the sky\
-                 \n3.  T2M\t: Average air temperature at a height of 2 meters (°C)\
-                 \n4.  TS\t: Average temperature at the Earth's surface (°C)\
-                 \n5.  PRECTOTCORR\t: Precipitation (mm)\
-                 \n6.  PS\t: Average surface pressure at the Earth's surface (kPA)\
-                 \n7.  WS10M\t: Average wind speed at a height of 10 meters (m/s)\
-                 \n8.  Status\t: Indicates rainfall (mm) at 15:00\
-                 \n9.  hujan_2100\t: Potential Upwelling Event\
-                 \n10. min_hujan\t: Potential Upwelling Event'
+                \n2.  ALLSKY_KT\t: Insolation clarity index of the sky\
+                \n3.  T2M\t: Average air temperature at a height of 2 meters (degC)\
+                \n4.  TS\t: Average temperature at the Earth\'s surface (degC)\
+                \n5.  PRECTOTCORR\t: Precipitation (mm)\
+                \n6.  PS\t: Average surface pressure at the Earth\'s surface (kPA)\
+                \n7.  WS10M\t: Average wind speed at a height of 10 meters (m/s)\
+                \n8.  Status\t: Indicates rainfall (mm) at 15:00\
+                \n9.  hujan_2100\t: Potential Upwelling Event\
+                \n10. min_hujan\t: Potential Upwelling Event'
     st.text(kolomdesc)
+
 
     # Menampilkan Plot Kejadian "Banjir" dan "Tidak Banjir" 
     fig = go.Figure()
