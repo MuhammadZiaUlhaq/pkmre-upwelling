@@ -43,9 +43,9 @@ def app():
     kolomdesc = "1.  DATE\t: Merupakan kolom yang mencatat tanggal indikator iklim\
              \n2.  ALLSKY_KT\t: Indeks kejernihan insolasi langit\
              \n3.  T2M\t        : Suhu udara rata-rata pada ketinggian 2 meter (°C)\
-             \n4.  TS\t         : Suhu rata-rata di permukaan bumi (°C)\
+             \n4.  TS\t        : Suhu rata-rata di permukaan bumi (°C)\
              \n5.  PRECTOTCORR\t: Curah hujan (mm)\
-             \n6.  PS\t         : Rata-rata tekanan permukaan di permukaan bumi (kPA)\
+             \n6.  PS\t        : Rata-rata tekanan permukaan di permukaan bumi (kPA)\
              \n7.  WS10M\t: Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)\
              \n8.  Status\t: Potensi Kejadian Upwelling"
     st.text(kolomdesc)
