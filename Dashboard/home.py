@@ -53,26 +53,15 @@ def app():
     
     # Menampilkan Plot Kejadian "Banjir" dan "Tidak Banjir" 
     fig = go.Figure()
-    # Mengatur warna dan nama untuk setiap kategori Status
-    colors = {'Potensi Upwelling': 'green', 'Tidak Berpotensi Upwelling': 'red'}
-
-    # Loop untuk menambahkan trace ke grafik
-    for Status in filtered_df_class['Status'].unique():
+    for Status, color in zip(filtered_df_class['Status'].unique(), ['red', 'green']):  # Choose your preferred colors
         filtered_df = filtered_df_class[filtered_df_class['Status'] == Status]
         fig.add_trace(go.Scatter(x=filtered_df.index, y=filtered_df['PRECTOTCORR'],
-                                mode='lines+markers', name=Status, line=dict(color=colors[Status])))
-
-    # Update layout grafik
-    fig.update_layout(
-        title='Potensi Upwelling vs Tidak Berpotensi Upwelling berdasarkan Indikator Iklim',
-        xaxis_title='Date',
-        yaxis_title='PRECTOTCORR',
-        template='plotly_dark'
-)
-
-    # Menampilkan grafik menggunakan Streamlit
+                             mode='markers', name=Status, line=dict(color=color)))
+    fig.update_layout(title='Potensi Upwelling vs Tidak Berpotensi Upwelling berdasarkan Indikator Iklim',
+                  xaxis_title='Date',
+                  yaxis_title='PRECTOTCORR',
+                  template='plotly_dark')
     st.plotly_chart(fig, use_container_width=True)
-
 '''
     # Data Historis Curah Hujan
     st.header("Data Historis Curah Hujan")
