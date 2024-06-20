@@ -10,3 +10,4 @@ catboost
 xgboost
 keras
 web_function
+st_social_media_links
