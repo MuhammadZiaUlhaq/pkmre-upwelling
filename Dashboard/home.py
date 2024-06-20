@@ -40,18 +40,18 @@ def app():
     st.write(filtered_df_class)
 
     # Menampilkan penjelasan dari struktur data
-    st.markdown("Deskripsi kolom dari tabel tersebut adalah:")   
-    kolomdesc = '\n1.  DATE\t: Merupakan kolom yang mencatat tanggal indickator iklim dicatat\
-                 \n2.  ALLSKY_KT\t: Indeks kejernihan insolasi langit\
-                 \n3.  T2M\t: Suhu udara rata-rata pada ketinggian 2 meter (°C)\
-                 \n4.  TS\t: Suhu rata-rata di permukaan bumi (°C)\
-                 \n5.  PRECTOTCORR\t: Curah hujan (mm)\
-                 \n6.  PS\t: Rata-rata tekanan permukaan di permukaan bumi (kPA)\
-                 \n7.  WS10M\t: Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)\
-                 \n8.  Status\t: Menunjukkan curah hujan (mm) pada jam 15:00\
-                 \n9.  hujan_2100\t: Potensi Kejadian Upwelling\
-                 \n10. min_hujan\t: Potensi Kejadian Upwelling'
-    st.text(kolomdesc)    
+    kolomdesc = "1.  DATE\t: Merupakan kolom yang mencatat tanggal indikator iklim\
+             \n2.  ALLSKY_KT\t: Indeks kejernihan insolasi langit\
+             \n3.  T2M\t: Suhu udara rata-rata pada ketinggian 2 meter (°C)\
+             \n4.  TS\t: Suhu rata-rata di permukaan bumi (°C)\
+             \n5.  PRECTOTCORR\t: Curah hujan (mm)\
+             \n6.  PS\t: Rata-rata tekanan permukaan di permukaan bumi (kPA)\
+             \n7.  WS10M\t: Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)\
+             \n8.  Status\t: Menunjukkan curah hujan (mm) pada jam 15:00\
+             \n9.  hujan_2100\t: Potensi Kejadian Upwelling\
+             \n10. min_hujan\t: Potensi Kejadian Upwelling"
+    st.text(kolomdesc)
+    
     
     # Menampilkan Plot Kejadian "Banjir" dan "Tidak Banjir" 
     fig = go.Figure()
