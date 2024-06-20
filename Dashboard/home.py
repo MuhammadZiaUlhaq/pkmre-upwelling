@@ -23,7 +23,7 @@ def app():
             )
 
     # Load Dataset
-    df = load_data("data\HASIL_CLUSTERING.csv")
+    df = load_data("data/HASIL_CLUSTERING.csv")
 
     # Data Historis Banjir
     df_class = df.copy()
