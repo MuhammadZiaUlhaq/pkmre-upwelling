@@ -23,8 +23,8 @@ def app():
             )
 
     # Load Dataset
-     df = load_data("data/cilacap_hujan.csv")
-     
+    df = load_data("data/cilacap_hujan.csv")
+    
     # Data Historis Banjir
     df_class = df.copy()
     df_class['DATE'] = pd.to_datetime(df_class['DATE'])
