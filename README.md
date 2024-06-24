@@ -10,7 +10,7 @@ Please run the following command in the expected path
 Note: Already install Git in local computer
 
 ## 2. Change branch to dev or create new branch <br>
-`git checkout dev`
+`git checkout develop`
 
 or
 
