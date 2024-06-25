@@ -27,14 +27,14 @@ def app():
         """)
 
         column_description = """
-        1. DATE: Records the date of the climate indicator
-        2. ALLSKY_KT: Sky insolation clarity index
-        3. T2M: Average air temperature at 2 meters height (°C)
-        4. TS: Average temperature at the earth's surface (°C)
-        5. PRECTOTCORR: Rainfall (mm)
-        6. PS: Average surface pressure at the earth's surface (kPa)
-        7. WS10M: Average wind speed at 10 meters height (m/s)
-        8. Status: Potential Upwelling Event
+        1. DATE         : Records the date of the climate indicator
+        2. ALLSKY_KT    : Sky insolation clarity index
+        3. T2M          : Average air temperature at 2 meters height (°C)
+        4. TS           : Average temperature at the earth's surface (°C)
+        5. PRECTOTCORR  : Rainfall (mm)
+        6. PS           : Average surface pressure at the earth's surface (kPa)
+        7. WS10M        : Average wind speed at 10 meters height (m/s)
+        8. Status       : Potential Upwelling Event
         """
 
     else:
@@ -45,14 +45,14 @@ def app():
         """)
 
         column_description = """
-        1. DATE: Merupakan kolom yang mencatat tanggal indikator iklim
-        2. ALLSKY_KT: Indeks kejernihan insolasi langit
-        3. T2M: Suhu udara rata-rata pada ketinggian 2 meter (°C)
-        4. TS: Suhu rata-rata di permukaan bumi (°C)
-        5. PRECTOTCORR: Curah hujan (mm)
-        6. PS: Rata-rata tekanan permukaan di permukaan bumi (kPa)
-        7. WS10M: Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)
-        8. Status: Potensi Kejadian Upwelling
+        1. DATE         : Merupakan kolom yang mencatat tanggal indikator iklim
+        2. ALLSKY_KT    : Indeks kejernihan insolasi langit
+        3. T2M          : Suhu udara rata-rata pada ketinggian 2 meter (°C)
+        4. TS           : Suhu rata-rata di permukaan bumi (°C)
+        5. PRECTOTCORR  : Curah hujan (mm)
+        6. PS           : Rata-rata tekanan permukaan di permukaan bumi (kPa)
+        7. WS10M        : Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)
+        8. Status       : Potensi Kejadian Upwelling
         """
 
     # Load Dataset
