@@ -29,14 +29,14 @@ def app():
         column_header = 'Column descriptions of the table'
         
         column_description = """
-        1. DATE         : Records the date of the climate indicator
-        2. ALLSKY_KT    : Sky insolation clarity index
-        3. T2M          : Average air temperature at 2 meters height (°C)
-        4. TS           : Average temperature at the earth's surface (°C)
-        5. PRECTOTCORR  : Rainfall (mm)
-        6. PS           : Average surface pressure at the earth's surface (kPa)
-        7. WS10M        : Average wind speed at 10 meters height (m/s)
-        8. Status       : Potential Upwelling Event
+        1. DATE             : Records the date of the climate indicator
+        2. ALLSKY_KT        : Sky insolation clarity index
+        3. T2M              : Average air temperature at 2 meters height (°C)
+        4. TS               : Average temperature at the earth's surface (°C)
+        5. PRECTOTCORR      : Rainfall (mm)
+        6. PS               : Average surface pressure at the earth's surface (kPa)
+        7. WS10M            : Average wind speed at 10 meters height (m/s)
+        8. Status           : Potential Upwelling Event
         """
 
     else:
