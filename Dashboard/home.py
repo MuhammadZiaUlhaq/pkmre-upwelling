@@ -24,10 +24,18 @@ def app():
         st.title("Climate Indicator-Based Upwelling Monitoring and Prediction Dashboard in Danau Laut Tawar")
         st.markdown("""
             Welcome to the Lake Laut Tawar climate indicator-based Upwelling Monitoring and Prediction Dashboard! The local community utilizes this lake as one of the main sources of livelihood. By combining the data in a year, the potential fish production in Danau Laut Tawar can reach 196 tons. This figure is quite fantastic and shows how important the role of Danau Laut Tawar is in supporting the local economy and providing food for the local community. However, erratic climate change is destabilizing fish production in Danau Laut Tawar. One of the contributing factors is the upwelling phenomenon. In 2017, this phenomenon had harmed floating net cage (KJA) farmers in the freshwater lake, resulting in losses of hundreds of millions of rupiah.
+        """)
 
-""")
-
-        # Add your remaining English content sections here...
+        column_description = """
+        1. DATE: Records the date of the climate indicator
+        2. ALLSKY_KT: Sky insolation clarity index
+        3. T2M: Average air temperature at 2 meters height (°C)
+        4. TS: Average temperature at the earth's surface (°C)
+        5. PRECTOTCORR: Rainfall (mm)
+        6. PS: Average surface pressure at the earth's surface (kPa)
+        7. WS10M: Average wind speed at 10 meters height (m/s)
+        8. Status: Potential Upwelling Event
+        """
 
     else:
         # Indonesian content
@@ -36,9 +44,16 @@ def app():
             Selamat datang di Dashboard Pemantauan dan Prediksi Upwelling berbasis indikator iklim Danau Laut Tawar! Masyarakat setempat memanfaatkan danau ini sebagai salah satu sumber mata pencaharian utama. Dengan manggabungkan data Dalam setahun, potensi produksi ikan di Danau Laut Tawar dapat mencapai 196 ton. Angka ini cukup fantastis dan menunjukkan betapa pentingnya peran Danau Laut Tawar dalam menyokong ekonomi lokal serta menyediakan pangan bagi masyarakat setempat. Namun, perubahan iklim yang tidak menentu mengganggu kestabilan produksi ikan di Danau Laut Tawar. Salah satu faktor penyebabnya adalah fenomena upwelling. Pada tahun 2017, fenomena ini pernah merugikan pembudidaya Keramba Jaring Apung (KJA) di Danau Laut Tawar, higga mengakibatkan kerugian mencapai ratusan juta rupiah.
         """)
 
-        # Add your remaining Bahasa Indonesia content sections here...
-
-    # The rest of your Streamlit app code follows...
+        column_description = """
+        1. DATE: Merupakan kolom yang mencatat tanggal indikator iklim
+        2. ALLSKY_KT: Indeks kejernihan insolasi langit
+        3. T2M: Suhu udara rata-rata pada ketinggian 2 meter (°C)
+        4. TS: Suhu rata-rata di permukaan bumi (°C)
+        5. PRECTOTCORR: Curah hujan (mm)
+        6. PS: Rata-rata tekanan permukaan di permukaan bumi (kPa)
+        7. WS10M: Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)
+        8. Status: Potensi Kejadian Upwelling
+        """
 
     # Load Dataset
     df = load_data("Dashboard/data/HASIL_CLUSTERING.csv")
@@ -58,16 +73,7 @@ def app():
     st.write(filtered_df_class)
 
     # Menampilkan penjelasan dari struktur data
-    kolomdesc = "1.  DATE\t: Merupakan kolom yang mencatat tanggal indikator iklim\
-             \n2.  ALLSKY_KT\t: Indeks kejernihan insolasi langit\
-             \n3.  T2M\t        : Suhu udara rata-rata pada ketinggian 2 meter (°C)\
-             \n4.  TS\t        : Suhu rata-rata di permukaan bumi (°C)\
-             \n5.  PRECTOTCORR\t: Curah hujan (mm)\
-             \n6.  PS\t        : Rata-rata tekanan permukaan di permukaan bumi (kPA)\
-             \n7.  WS10M\t: Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)\
-             \n8.  Status\t: Potensi Kejadian Upwelling"
-    st.text(kolomdesc)
-    
+    st.text(column_description)
     
     # Menampilkan Plot Kejadian "Banjir" dan "Tidak Banjir" 
     fig = go.Figure()
@@ -84,6 +90,7 @@ def app():
 # Entry point of the app
 if __name__ == '__main__':
     app()
+
 
 '''
     # Data Historis Curah Hujan
