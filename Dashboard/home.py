@@ -73,10 +73,10 @@ def app():
     filtered_df_class = df_class.loc[start_date:end_date]
 
     # Menampilkan Data Historis Banjir
-    st.header("Deskripsi kolom dari table tersebut")
     st.write(filtered_df_class)
 
     # Menampilkan penjelasan dari struktur data
+    st.header("Deskripsi kolom dari table tersebut")
     st.text(column_description)
     
     # Menampilkan Plot Kejadian "Banjir" dan "Tidak Banjir" 
