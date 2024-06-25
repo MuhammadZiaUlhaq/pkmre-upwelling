@@ -63,8 +63,12 @@ def app():
     df_class['DATE'] = pd.to_datetime(df_class['DATE'])
     df_class.set_index('DATE', inplace=True)
 
+    # Define the date range for selection
+    min_date = pd.to_datetime("2017-01-01")
+    max_date = pd.to_datetime("2023-12-31")
+
     # Pemfilteran Data Berdasarkan Range Waktu
-    date_range = st.date_input("Pilih Rentang Waktu", [df_class.index.min(), df_class.index.max()], key="date_range")
+    date_range = st.date_input("Pilih Rentang Waktu", [min_date, max_date], min_value=min_date, max_value=max_date, key="date_range")
     start_date, end_date = date_range
     filtered_df_class = df_class.loc[start_date:end_date]
 
