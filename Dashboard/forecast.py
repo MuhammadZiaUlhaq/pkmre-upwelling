@@ -41,7 +41,7 @@ def app():
             fig = px.line(filtered_df, x=filtered_df.index, y=column, title=f'Plot of {column}')
             st.plotly_chart(fig)
     #tampilan setelah tanggal
-    st.header(filtered_df)
+    st.write(filtered_df)
     # Provide a download button for the data
     csv_data = filtered_df.to_csv(index=True)
     st.download_button(label="Download CSV", data=csv_data, file_name='filtered_data.csv', key='download_button')
