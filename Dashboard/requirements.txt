@@ -9,5 +9,5 @@ streamlit-option-menu
 catboost
 xgboost
 keras
-web_function
+web-function
 st_social_media_links
