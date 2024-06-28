@@ -11,12 +11,12 @@ def app():
     df = pd.read_csv(csv_path)
 
     # Convert the DATE column to datetime format with the correct format
-    df['DATE'] = pd.to_datetime(df['DATE'], format='%d/%m/%Y')
+    df['DATE'] = pd.to_datetime(df['DATE'], format='%d/%m/%Y').dt.date  # Mengubah ke format tanggal saja
     df.set_index('DATE', inplace=True)
 
     # Define the date range for selection
-    min_date = pd.to_datetime("1/1/2024", format="%d/%m/%Y")
-    max_date = pd.to_datetime("31/12/2025", format="%d/%m/%Y")
+    min_date = pd.to_datetime("1/1/2024", format="%d/%m/%Y").date()  # Mengubah ke format tanggal saja
+    max_date = pd.to_datetime("31/12/2025", format="%d/%m/%Y").date()  # Mengubah ke format tanggal saja
 
     # Pemfilteran Data Berdasarkan Range Waktu
     date_range = st.date_input("Pilih Rentang Waktu", [min_date, max_date], min_value=min_date, max_value=max_date, key="date_range")
@@ -28,7 +28,7 @@ def app():
     # Display the data and plot for each column
     st.subheader("CSV Data and Corresponding Plots")
     for column in filtered_df.columns:
-        col1, col2 = st.columns((1, 1))  # Adjust column widths to center the table and plot
+        col1, col2 = st.columns(2)
         
         # Display the table
         with col1:
@@ -39,11 +39,7 @@ def app():
         with col2:
             st.write(f"**Plot for {column}**")
             fig = px.line(filtered_df, x=filtered_df.index, y=column, title=f'Plot of {column}')
-            st.plotly_chart(fig, use_container_width=True)  # Use container width to center the plot
-            
-    # Display preview of the data to be downloaded
-    st.subheader("Preview of Data to be Downloaded")
-    st.write(filtered_df)
+            st.plotly_chart(fig)
 
     # Provide a download button for the data
     csv_data = filtered_df.to_csv(index=True)
