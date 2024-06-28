@@ -97,7 +97,6 @@ def app():
 if __name__ == '__main__':
     app()
 
-
 '''
     # Data Historis Curah Hujan
     st.header("Data Historis Curah Hujan")
