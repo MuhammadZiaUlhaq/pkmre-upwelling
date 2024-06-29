@@ -46,9 +46,9 @@ def app():
         return
 
     # Sidebar inputs for selecting date range
-    date_range = st.date_input('Select Date Range', [pd.to_datetime('today').date(), pd.to_datetime('today').date()])
+    date_range = st.date_input('Select Date Range', [])
     if len(date_range) != 2:
-        st.error("Please select a valid date range.")
+        st.error("Please select date range.")
         return
     start_date, end_date = date_range
     selected_dates = pd.date_range(start=start_date, end=end_date).date

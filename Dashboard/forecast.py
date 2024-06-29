@@ -18,8 +18,11 @@ def app():
     min_date = pd.to_datetime("1/1/2024", format="%d/%m/%Y").date()  # Mengubah ke format tanggal saja
     max_date = pd.to_datetime("31/12/2025", format="%d/%m/%Y").date()  # Mengubah ke format tanggal saja
 
-    # Pemfilteran Data Berdasarkan Range Waktu
-    date_range = st.date_input("Pilih Rentang Waktu", [min_date, max_date], min_value=min_date, max_value=max_date, key="date_range")
+    # Sidebar inputs for selecting date range
+    date_range = st.date_input('Select Date Range', [])
+    if len(date_range) != 2:
+        st.error("Please select date range.")
+        return
     start_date, end_date = date_range
     filtered_df = df.loc[start_date:end_date]
 
