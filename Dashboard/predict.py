@@ -92,6 +92,9 @@ def app():
 
     # Display prediction result
     if st.button("Predict Upwelling"):
+        # Clear previous predictions
+        state.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'TS', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
+        
         for data in input_data:
             try:
                 input_features = [[data['ALLSKY_KT'], data['T2M'], data['TS'], data['WS10M'], data['PRECTOTCORR'], data['PS']]]
