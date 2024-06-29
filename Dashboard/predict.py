@@ -40,17 +40,16 @@ def app():
         state.csv_data = pd.read_csv('Dashboard/data/data.csv')
         state.csv_data['DATE'] = pd.to_datetime(state.csv_data['DATE'], format='%d/%m/%Y')
         state.csv_data['DATE'] = state.csv_data['DATE'].dt.date  # Convert to date only (no time component)
+        st.write("CSV Data Loaded Successfully")
     except Exception as e:
         st.error(f"Error loading data.csv: {e}")
         return
 
     # Sidebar inputs for selecting date range
-    date_range = st.date_input('Select Date Range', [min_date, max_date], key="date_range")
-
-# Pastikan pengguna telah memilih rentang yang valid
-if len(date_range) != 2:
-    st.error("Please select date range.")
-else:
+    date_range = st.date_input('Select Date Range', [])
+    if len(date_range) != 2:
+        st.error("Please select date range.")
+        return
     start_date, end_date = date_range
     selected_dates = pd.date_range(start=start_date, end=end_date).date
 
