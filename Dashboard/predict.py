@@ -45,10 +45,12 @@ def app():
         return
 
     # Sidebar inputs for selecting date range
-    date_range = st.date_input('Select Date Range', [])
-    if len(date_range) != 2:
-        st.error("Please select date range.")
-        return
+    date_range = st.date_input('Select Date Range', [min_date, max_date], key="date_range")
+
+# Pastikan pengguna telah memilih rentang yang valid
+if len(date_range) != 2:
+    st.error("Please select date range.")
+else:
     start_date, end_date = date_range
     selected_dates = pd.date_range(start=start_date, end=end_date).date
 
