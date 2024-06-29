@@ -124,7 +124,18 @@ def app():
     # Display all_data table
     state.all_data = state.all_data.sort_values(by=['DATE'], ascending=True)
     state.all_data = state.all_data.reset_index(drop=True)
-    st.table(state.all_data)
+
+    # Format numeric columns to display float with two decimal places
+    formatted_data = state.all_data.copy()
+    numeric_columns = ['ALLSKY_KT', 'T2M', 'TS', 'PRECTOTCORR', 'PS', 'WS10M']
+
+    for col in numeric_columns:
+        formatted_data[col] = formatted_data[col].apply(lambda x: f"{x:.2f}")
+
+    # Format Predictions column if necessary (assuming it's a string representation of list)
+    formatted_data['Predictions'] = formatted_data['Predictions'].apply(lambda x: x[0] if isinstance(x, list) else x)
+
+    st.table(formatted_data)
 
     # Download button for CSV
     if not state.all_data.empty:
