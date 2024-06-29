@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
+from datetime import datetime
 
 # Define a SessionState class for managing state across Streamlit reruns
 class SessionState:
@@ -9,6 +10,7 @@ class SessionState:
         self.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'TS', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
         self.csv_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'TS', 'PRECTOTCORR', 'PS', 'WS10M'])
         self.selected_date_data = {}
+        self.auto_fill_message_shown = False  # Add a flag to track if the message has been shown
 
 # Initialize state
 if 'session_state' not in st.session_state:
@@ -37,64 +39,84 @@ def app():
     try:
         state.csv_data = pd.read_csv('Dashboard/data/data.csv')
         state.csv_data['DATE'] = pd.to_datetime(state.csv_data['DATE'], format='%d/%m/%Y')
+        state.csv_data['DATE'] = state.csv_data['DATE'].dt.date  # Convert to date only (no time component)
         st.write("CSV Data Loaded Successfully")
     except Exception as e:
         st.error(f"Error loading data.csv: {e}")
         return
 
-    # Sidebar inputs for selecting date
-    selected_date = st.date_input('Select Date', pd.to_datetime('today').date())
-    selected_date_str = selected_date.strftime('%Y-%m-%d')
+    # Sidebar inputs for selecting date range
+    date_range = st.date_input('Select Date Range', [pd.to_datetime('today').date(), pd.to_datetime('today').date()])
+    if len(date_range) != 2:
+        st.error("Please select a valid date range.")
+        return
+    start_date, end_date = date_range
+    selected_dates = pd.date_range(start=start_date, end=end_date).date
 
-    # Check if data exists for selected date and auto-fill inputs
-    if not state.csv_data.empty and selected_date in state.csv_data['DATE'].dt.date.values:
-        row_data = state.csv_data[state.csv_data['DATE'].dt.date == selected_date].iloc[0]
-        allsky_kt = row_data['ALLSKY_KT']
-        t2m = row_data['T2M']
-        ts = row_data['TS']
-        prectotcorr = row_data['PRECTOTCORR']
-        ps = row_data['PS']
-        ws10m = row_data['WS10M']
-        st.success("Data found for the selected date and auto-filled the fields.")
-    else:
-        st.warning("Data not found for the selected date. Please input the values manually.")
-        allsky_kt = st.number_input('ALLSKY_KT', value=0.00)
-        t2m = st.number_input('T2M', value=0.00)
-        ts = st.number_input('TS', value=0.00)
-        prectotcorr = st.number_input('PRECTOTCORR', value=0.00)
-        ps = st.number_input('PS', value=0.00)
-        ws10m = st.number_input('WS10M', value=0.00)
+    results = []
+    input_data = []
+
+    for selected_date in selected_dates:
+        selected_date_str = selected_date.strftime('%Y-%m-%d')
+
+        # Check if data exists for selected date and auto-fill inputs
+        if not state.csv_data.empty and selected_date in state.csv_data['DATE'].values:
+            row_data = state.csv_data[state.csv_data['DATE'] == selected_date].iloc[0]
+            allsky_kt = row_data['ALLSKY_KT']
+            t2m = row_data['T2M']
+            ts = row_data['TS']
+            prectotcorr = row_data['PRECTOTCORR']
+            ps = row_data['PS']
+            ws10m = row_data['WS10M']
+            if not state.auto_fill_message_shown:
+                st.success("Data found, auto-filled the fields.")
+                state.auto_fill_message_shown = True
+        else:
+            st.warning(f"Data not found for {selected_date_str}. Please input the values manually.")
+            allsky_kt = st.number_input(f'ALLSKY_KT for {selected_date_str}', value=0.00)
+            t2m = st.number_input(f'T2M for {selected_date_str}', value=0.00)
+            ts = st.number_input(f'TS for {selected_date_str}', value=0.00)
+            prectotcorr = st.number_input(f'PRECTOTCORR for {selected_date_str}', value=0.00)
+            ps = st.number_input(f'PS for {selected_date_str}', value=0.00)
+            ws10m = st.number_input(f'WS10M for {selected_date_str}', value=0.00)
+
+        input_data.append({
+            'DATE': selected_date_str,
+            'ALLSKY_KT': float(allsky_kt),
+            'T2M': float(t2m),
+            'TS': float(ts),
+            'PRECTOTCORR': float(prectotcorr),
+            'PS': float(ps),
+            'WS10M': float(ws10m)
+        })
 
     # Display prediction result
-    hasil_prediksi = ""
-
     if st.button("Predict Upwelling"):
-        try:
-            input_features = [[float(allsky_kt), float(t2m), float(ts), float(ws10m), float(prectotcorr), float(ps)]]
-            input_array = np.array(input_features)
-            st.write(f"Input Array: {input_array}")  # Display input array for debugging
-            hasil_prediksi = predict(model, input_array)
-            st.write(f"Raw Prediction: {hasil_prediksi}")  # Display raw prediction for debugging
+        for data in input_data:
+            try:
+                input_features = [[data['ALLSKY_KT'], data['T2M'], data['TS'], data['WS10M'], data['PRECTOTCORR'], data['PS']]]
+                input_array = np.array(input_features)
+                hasil_prediksi = predict(model, input_array)
 
-            # Store prediction result and input data in state or any storage mechanism
-            new_data = {
-                'DATE': [selected_date_str],
-                'ALLSKY_KT': [float(allsky_kt)],
-                'T2M': [float(t2m)],
-                'TS': [float(ts)],
-                'PRECTOTCORR': [float(prectotcorr)],
-                'PS': [float(ps)],
-                'WS10M': [float(ws10m)],
-                'Predictions': [hasil_prediksi]
-            }
+                # Store prediction result and input data in state or any storage mechanism
+                new_data = {
+                    'DATE': [data['DATE']],
+                    'ALLSKY_KT': [data['ALLSKY_KT']],
+                    'T2M': [data['T2M']],
+                    'TS': [data['TS']],
+                    'PRECTOTCORR': [data['PRECTOTCORR']],
+                    'PS': [data['PS']],
+                    'WS10M': [data['WS10M']],
+                    'Predictions': [hasil_prediksi]
+                }
 
-            state.all_data = pd.concat([state.all_data, pd.DataFrame(new_data)], ignore_index=True)
+                state.all_data = pd.concat([state.all_data, pd.DataFrame(new_data)], ignore_index=True)
+                results.append(new_data)
+            except ValueError:
+                st.warning("Please enter valid numeric values.")
 
-        except ValueError:
-            st.warning("Please enter valid numeric values.")
-            hasil_prediksi = ""
-
-    st.success(hasil_prediksi)
+    if results:
+        st.success("Predictions completed for the selected date range.")
 
     # Display all_data table
     state.all_data = state.all_data.sort_values(by=['DATE'], ascending=True)
