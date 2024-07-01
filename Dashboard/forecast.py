@@ -48,7 +48,6 @@ def app():
     # Provide a download button for the data
     csv_data = filtered_df.to_csv(index=True)
     st.download_button(label="Download CSV", data=csv_data, file_name='filtered_data.csv', key='download_button')
-    st.write("Setelah melakukan forecasting curah hujan, nilai-nilai hasil forscast tersebut dapat dijadikan sebagai input             
-untuk model prediksi yang lebih lanjut. Data forecasting ini mencakup estimasi (nama nama variable) di masa depan, yang diperoleh melalui metode analysis time series SVARMA dan VAR.")
+    st.write("Setelah melakukan forecasting curah hujan, nilai-nilai hasil forscast tersebut dapat dijadikan sebagai input untuk model prediksi yang lebih lanjut. Data forecasting ini mencakup estimasi (nama nama variable) di masa depan, yang diperoleh melalui metode analysis time series SVARMA dan VAR.")
 
 app()
