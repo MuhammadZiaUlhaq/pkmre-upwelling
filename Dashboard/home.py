@@ -106,6 +106,7 @@ def app():
                   xaxis_title='Date',
                   yaxis_title='PRECTOTCORR',
                   template='plotly_dark')
+    st.header(tampilan_header)
     st.plotly_chart(fig, use_container_width=True)
 
     # Menampilkan Line Chart dari indikator iklim lainnya satu per satu
