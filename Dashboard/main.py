@@ -6,11 +6,6 @@ import forecast
 import predict
 import about
 
-st.set_page_config(
-    page_title="Dashboard",
-    layout="wide"
-)
-
 class MultiApp:
     def __init__(self):
         self.apps = []
@@ -31,7 +26,7 @@ class MultiApp:
                 menu_icon='bi-cast',
                 default_index=0,
                 styles={
-                    "container": {"padding": "5!important", "background-color": 'black'},
+                    "container": {"padding": "5!important", "background-color": '#0f1117'},
                     "icon": {"color": "white", "font-size": "23px"},
                     "nav-link": {"color": "white", "font-size": "20px", "text-align": "left", "margin": "0px",
                                  "--hover-color": "blue"},
