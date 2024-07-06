@@ -7,8 +7,8 @@ from datetime import datetime
 # Define a SessionState class for managing state across Streamlit reruns
 class SessionState:
     def __init__(self):
-        self.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'TS', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
-        self.csv_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'TS', 'PRECTOTCORR', 'PS', 'WS10M'])
+        self.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
+        self.csv_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M'])
         self.selected_date_data = {}
         self.auto_fill_message_shown = False  # Add a flag to track if the message has been shown
 
@@ -32,7 +32,7 @@ def app():
     st.title("Upwelling Prediction")
 
     # Load the model
-    model_path = 'Dashboard/data/model_fix.pkl'  # Replace with the correct path to your model
+    model_path = 'Dashboard\models\prediksi\model_klasifikasi.pkl'  # Replace with the correct path to your model
     model = load_model(model_path)
 
     # Load data from data.csv
@@ -64,7 +64,6 @@ def app():
             row_data = state.csv_data[state.csv_data['DATE'] == selected_date].iloc[0]
             allsky_kt = row_data['ALLSKY_KT']
             t2m = row_data['T2M']
-            ts = row_data['TS']
             prectotcorr = row_data['PRECTOTCORR']
             ps = row_data['PS']
             ws10m = row_data['WS10M']
@@ -75,7 +74,6 @@ def app():
             st.warning(f"Data not found for {selected_date_str}. Please input the values manually.")
             allsky_kt = st.number_input(f'ALLSKY_KT for {selected_date_str}', value=0.00)
             t2m = st.number_input(f'T2M for {selected_date_str}', value=0.00)
-            ts = st.number_input(f'TS for {selected_date_str}', value=0.00)
             prectotcorr = st.number_input(f'PRECTOTCORR for {selected_date_str}', value=0.00)
             ps = st.number_input(f'PS for {selected_date_str}', value=0.00)
             ws10m = st.number_input(f'WS10M for {selected_date_str}', value=0.00)
@@ -84,7 +82,6 @@ def app():
             'DATE': selected_date_str,
             'ALLSKY_KT': float(allsky_kt),
             'T2M': float(t2m),
-            'TS': float(ts),
             'PRECTOTCORR': float(prectotcorr),
             'PS': float(ps),
             'WS10M': float(ws10m)
@@ -93,11 +90,11 @@ def app():
     # Display prediction result
     if st.button("Predict Upwelling"):
         # Clear previous predictions
-        state.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'TS', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
+        state.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
         
         for data in input_data:
             try:
-                input_features = [[data['ALLSKY_KT'], data['T2M'], data['TS'], data['WS10M'], data['PRECTOTCORR'], data['PS']]]
+                input_features = [[data['ALLSKY_KT'], data['T2M'], data['WS10M'], data['PRECTOTCORR'], data['PS']]]
                 input_array = np.array(input_features)
                 hasil_prediksi = predict(model, input_array)
 
@@ -106,7 +103,6 @@ def app():
                     'DATE': [data['DATE']],
                     'ALLSKY_KT': [data['ALLSKY_KT']],
                     'T2M': [data['T2M']],
-                    'TS': [data['TS']],
                     'PRECTOTCORR': [data['PRECTOTCORR']],
                     'PS': [data['PS']],
                     'WS10M': [data['WS10M']],
@@ -127,7 +123,7 @@ def app():
 
     # Format numeric columns to display float with two decimal places
     formatted_data = state.all_data.copy()
-    numeric_columns = ['ALLSKY_KT', 'T2M', 'TS', 'PRECTOTCORR', 'PS', 'WS10M']
+    numeric_columns = ['ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M']
 
     for col in numeric_columns:
         formatted_data[col] = formatted_data[col].apply(lambda x: f"{x:.2f}")
