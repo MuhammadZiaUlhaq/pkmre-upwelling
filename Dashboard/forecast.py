@@ -50,4 +50,5 @@ def app():
     st.download_button(label="Download CSV", data=csv_data, file_name='filtered_data.csv', key='download_button')
     st.write("Setelah melakukan forecasting curah hujan, nilai-nilai hasil forscast tersebut dapat dijadikan sebagai input untuk model prediksi yang lebih lanjut. Data forecasting ini mencakup estimasi (nama nama variable) di masa depan, yang diperoleh melalui metode analysis time series SVARMA dan VAR.")
 
-app()
+if __name__ == "__main__":
+    app()
