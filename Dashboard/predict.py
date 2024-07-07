@@ -32,7 +32,7 @@ def app():
     st.title("Upwelling Prediction")
 
     # Load the model
-    model_path = 'Dashboard\models\prediksi\model_klasifikasi.pkl'  # Replace with the correct path to your model
+    model_path = 'Dashboard\data\model_klasifikasi.pkl'
     model = load_model(model_path)
 
     # Load data from data.csv
