@@ -7,7 +7,7 @@ def app():
     st.title("Data Display")
 
     # Load the CSV file
-    csv_path = 'Dashboard/data/data.csv'
+    csv_path = 'Dashboard/data/Data_Hasil_Forcast_2_Tahun_(2024-2025).csv'
     df = pd.read_csv(csv_path)
 
     # Convert the DATE column to datetime format with the correct format

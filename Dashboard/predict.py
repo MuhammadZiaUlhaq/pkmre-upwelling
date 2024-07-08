@@ -37,7 +37,7 @@ def app():
 
     # Load data from data.csv
     try:
-        state.csv_data = pd.read_csv('Dashboard/data/data.csv')
+        state.csv_data = pd.read_csv('Dashboard/data/Data_Hasil_Forcast_2_Tahun_(2024-2025).csv')
         state.csv_data['DATE'] = pd.to_datetime(state.csv_data['DATE'], format='%d/%m/%Y')
         state.csv_data['DATE'] = state.csv_data['DATE'].dt.date  # Convert to date only (no time component)
         st.write("CSV Data Loaded Successfully")
