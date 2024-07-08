@@ -56,7 +56,7 @@ def app():
 
             #### Prediction Model:
             We use the SVM model to predict upwelling:
-            - SVM model with F1-Score = X
+            - SVM model with F1-Score = 0,985
         """)
 
         st.header("Analysis Process")
@@ -184,7 +184,7 @@ def app():
             #### Model 	prediksi:
             Kami menggunakan model SVM  untuk memprediksi upwelling:
 
-            - Model svm dengan nilai F1-Score = x
+            - Model svm dengan nilai F1-Score = 0,985
             """)
 
         st.header("Proses Analisis")
