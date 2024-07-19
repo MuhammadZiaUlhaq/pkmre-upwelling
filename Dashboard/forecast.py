@@ -7,7 +7,7 @@ def app():
     st.title("Data Display")
 
     # Load the CSV file
-    csv_path = 'Dashboard/data/data.csv'
+    csv_path = 'Dashboard/data/Data_Hasil_Forcast_2_Tahun_(2024-2025).csv'
     df = pd.read_csv(csv_path)
 
     # Convert the DATE column to datetime format with the correct format
@@ -19,7 +19,10 @@ def app():
     max_date = pd.to_datetime("31/12/2025", format="%d/%m/%Y").date()  # Mengubah ke format tanggal saja
 
     # Pemfilteran Data Berdasarkan Range Waktu
-    date_range = st.date_input("Pilih Rentang Waktu", [min_date, max_date], min_value=min_date, max_value=max_date, key="date_range")
+    date_range = st.date_input("Pilih Rentang Waktu", [], min_value=min_date, max_value=max_date)
+    if len(date_range) != 2:
+        st.error("Please select date range.")
+        return
     start_date, end_date = date_range
     filtered_df = df.loc[start_date:end_date]
 
@@ -45,5 +48,7 @@ def app():
     # Provide a download button for the data
     csv_data = filtered_df.to_csv(index=True)
     st.download_button(label="Download CSV", data=csv_data, file_name='filtered_data.csv', key='download_button')
+    st.write("Setelah melakukan forecasting curah hujan, nilai-nilai hasil forscast tersebut dapat dijadikan sebagai input untuk model prediksi yang lebih lanjut. Data forecasting ini mencakup estimasi (nama nama variable) di masa depan, yang diperoleh melalui metode analysis time series SVARMA dan VAR.")
 
-app()
+if __name__ == "__main__":
+    app()

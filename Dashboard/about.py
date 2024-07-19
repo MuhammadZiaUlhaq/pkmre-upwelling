@@ -48,30 +48,21 @@ def app():
         st.markdown("""
             #### Forecasting Models (SVARMA and Seasonal Autoregressive):
             We use two models, SVARMA and Seasonal Autoregressive, to forecast climate indicators at various time intervals:
-            - All sky insolation clearness index: AIC = X, RMSE = X, MAE = X
-            - Temperature: AIC = X, RMSE = X, MAE = X
-            - Earth skin: AIC = X, RMSE = X, MAE = X
-            - Precipitation: AIC = X, RMSE = X, MAE = X
-            - Surface pressure: AIC = X, RMSE = X, MAE = X
-            - Wind speed: AIC = X, RMSE = X, MAE = X
+            - All sky insolation clearness index: MSE = 0,0526, RMSE = 0,2295, MAE = 0,1815
+            - Temperature: MSE = 0,0341, RMSE = 0,1847, MAE = 0,1514
+            - Precipitation: MSE = 0,0738, RMSE = 0,2721, MAE = 0,2191
+            - Surface pressure: MSE = 0,0399, RMSE = 0,1998, MAE = 0,1602
+            - Wind speed: MSE = 0,0287, RMSE = 0,1697, MAE = 0,1347
 
             #### Prediction Model:
             We use the SVM model to predict upwelling:
-            - SVM model with F1-Score = X
-        """)
-
-        st.header("Analysis Process")
-        st.markdown("""
-            To learn more about the analysis process, please visit the following links:
-            - **Data Preprocessing:** The process of preparing and cleaning data before modeling.
-            - **Climate Forecast Modeling:** Steps in building and validating the climate forecast model.
-            - **Upwelling Prediction Modeling:** Steps in building the upwelling prediction model.
+            - SVM model with F1-Score = 0,985
         """)
 
         st.header("Technologies / Tools Used")
         st.markdown("""
             - **Streamlit:** For building the user interface.
-            - **Pandas:** For data manipulation and analysis.
+            - **Pandas & R:** For data manipulation and analysis.
             - **Joblib:** For saving and loading machine learning models.
             - **Plotly Express and Plotly Graph Objects:** Libraries for creating interactive data visualizations.
         """)
@@ -89,15 +80,6 @@ def app():
             @pkmre_upwelling
             </a>
             """, unsafe_allow_html=True)
-
-        st.write('')
-        st.header("Additional Information")
-        st.markdown("""
-            - **GitHub Project:** [Link to Project on GitHub](https://github.com/filbertleo88/TSA-Project-Dashboard-Pemantauan-dan-Prediksi-Banjir-Berbasis-Curah-Hujan-di-Kabupaten-Cilacap.git)
-            - **PowerPoint Presentation:** [Link to PowerPoint Presentation](https://www.canva.com/design/DAF0A1dJX7U/wJ4v3GbixYVc9uGgUBMwkQ/view?utm_content=DAF0A1dJX7U&utm_campaign=designshare&utm_medium=link&utm_source=editor)
-            - **Journal 1:** [Rainfall Classification in Semarang City Using Machine Learning](https://drive.google.com/file/d/1xNt8ukRLHngGABqxNzf8EcvIk4Mm6oo7/view?usp=drive_link)
-            - **Journal 2:** [CRISP-DM Model Implementation Using Decision Tree Method with CART Algorithm for Flood Potential Rainfall Prediction](https://drive.google.com/file/d/1z_ogTpqjQzLNKka3rvAtAsEZJ4Fb0lJY/view?usp=drive_link)
-        """)
 
         st.header("Contact")
         st.markdown("""
@@ -175,32 +157,23 @@ def app():
         st.markdown("""
             #### Model Model Forecast (SVARMA dan Seasonal Autoregresive):
             Kami menggunakan dua model SVARMA dan Seaonal Autoregresive untuk meramalkan indicator iklim pada berbagai interval waktu:            
-            - All sky insilation cleaness index : AIC, = X,RMSE = X, MAE = X
-            - Temperature : AIC = X, RMSE = X, MAE = X
-            - Earth skin : AIC = X, RMSE = X, MAE = X
-            - Presipitation : AIC = X,RMSE = X, MAE = X
-            - Surface pressure : AIC = X, RMSE = X, MAE = X
-            - Wind speed : AIC = X, RMSE = X, MAE = X
+            - All sky insilation cleaness index : MSE = 0,0526, RMSE = 0,2295, MAE = 0,1815
+            - Temperature: MSE = 0,0341, RMSE = 0,1847, MAE = 0,1514
+            - Precipitation: MSE = 0,0738, RMSE = 0,2721, MAE = 0,2191
+            - Surface pressure: MSE = 0,0399, RMSE = 0,1998, MAE = 0,1602
+            - Wind speed: MSE = 0,0287, RMSE = 0,1697, MAE = 0,1347
 
 
             #### Model 	prediksi:
             Kami menggunakan model SVM  untuk memprediksi upwelling:
 
-            - Model svm dengan nilai F1-Score = x
+            - Model svm dengan nilai F1-Score = 0,985
             """)
-
-        st.header("Proses Analisis")
-        st.markdown("""
-            untuk memahami lebih lanjut mengenai proses analisis, silakan kunjungi link berikut            
-            - **Preprocessing Data:** Proses persiapan dan pembersihan data sebelum pemodelan.
-            - **Pemodelan Forecast Iklim:** Tahapan pembentukan dan validasi model forecast iklim.
-            - **Pemodelan Prediksi Banjir:** Langkah-langkah dalam membangun model prediksi upwelling.
-        """)
 
         st.header("Teknologi / Tools yang Digunakan")
         st.markdown("""
             - **Streamlit:** Untuk pembuatan antarmuka pengguna.
-            - **Pandas:** Untuk manipulasi dan analisis data.
+            - **Pandas & R:** Untuk manipulasi dan analisis data.
             - **Joblib:** Untuk menyimpan dan memuat model pembelajaran mesin.
             - **Plotly Express dan Plotly Graph Objects:** Library untuk membuat visualisasi data interaktif.
 
@@ -218,16 +191,6 @@ def app():
             @pkmre_upwelling
             </a>
             """, unsafe_allow_html=True)
-        
-        st.write('')
-        st.header("Informasi Tambahan")
-        st.markdown("""
-                    
-            - **GitHub Project:** [Link ke Proyek di GitHub](https://github.com/filbertleo88/TSA-Project-Dashboard-Pemantauan-dan-Prediksi-Banjir-Berbasis-Curah-Hujan-di-Kabupaten-Cilacap.git)
-            - **Presentasi PowerPoint:** [Link ke Presentasi PowerPoint](https://www.canva.com/design/DAF0A1dJX7U/wJ4v3GbixYVc9uGgUBMwkQ/view?utm_content=DAF0A1dJX7U&utm_campaign=designshare&utm_medium=link&utm_source=editor)
-            - **Jurnal 1:** [Klasifikasi Curah Hujan di Kota Semarang Menggunakan Machine Learning](https://drive.google.com/file/d/1xNt8ukRLHngGABqxNzf8EcvIk4Mm6oo7/view?usp=drive_link)
-            - **Jurnal 2:** [Implementasi CRISP-DM Model Menggunakan Metode Decision Tree dengan Algoritma CART untuk Prediksi Curah Hujan Berpotensi Banjir](https://drive.google.com/file/d/1z_ogTpqjQzLNKka3rvAtAsEZJ4Fb0lJY/view?usp=drive_link)
-        """)
 
         st.header("Kontak")
         st.markdown("""
