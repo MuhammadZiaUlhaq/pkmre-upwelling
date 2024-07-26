@@ -18,7 +18,7 @@ def plot_rainfall_line(df):
 def plot_climate_indicator(df, indicator):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator))
-    fig.update_layout(title=['ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M'],
+    fig.update_layout(title=f'{indicator}',
                       xaxis_title='Date',
                       yaxis_title=indicator,
                       template='plotly_dark')
