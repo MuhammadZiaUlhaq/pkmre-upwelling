@@ -3,6 +3,15 @@ import pandas as pd
 import plotly.graph_objects as go
 from web_function import preprocess_dataframe, load_data  # Assuming these are your custom functions
 
+# Descriptive names for the climate indicators
+indicator_names = {
+    'ALLSKY_KT': 'Indeks Kejernihan Langit',
+    'T2M': 'Suhu Udara Rata-Rata pada Ketinggian 2 Meter (°C)',
+    'PRECTOTCORR': 'Curah Hujan (mm)',
+    'PS': 'Tekanan Permukaan Rata-Rata (kPa)',
+    'WS10M': 'Kecepatan Angin Rata-Rata pada Ketinggian 10 Meter (m/s)'
+}
+
 def plot_rainfall_line(df):
     fig = go.Figure()
     for event_type in df['Status'].unique():
@@ -17,10 +26,10 @@ def plot_rainfall_line(df):
 
 def plot_climate_indicator(df, indicator):
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator))
-    fig.update_layout(title=f'{indicator}',
+    fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator_names[indicator]))
+    fig.update_layout(title=indicator_names[indicator],
                       xaxis_title='Date',
-                      yaxis_title=indicator,
+                      yaxis_title=indicator_names[indicator],
                       template='plotly_dark')
     return fig
 
@@ -91,8 +100,6 @@ def app():
     # Menampilkan penjelasan dari struktur data
     st.header(column_header)
     st.text(column_description)
-    
-    
     
     # Menampilkan Plot Kejadian "Banjir" dan "Tidak Banjir" 
     fig = go.Figure()
