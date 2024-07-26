@@ -29,7 +29,7 @@ def plot_climate_indicator(df, indicator):
     fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator_names[indicator]))
     fig.update_layout(title=indicator_names[indicator],
                       xaxis_title='Date',
-                      yaxis_title=indicator_names[indicator],
+                      yaxis_title=[indicator],
                       template='plotly_dark')
     return fig
 
