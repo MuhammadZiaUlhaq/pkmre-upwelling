@@ -3,8 +3,16 @@ import pandas as pd
 import plotly.graph_objects as go
 from web_function import preprocess_dataframe, load_data  # Assuming these are your custom functions
 
-# Descriptive names for the climate indicators
-indicator_names = {
+# Descriptive names for the climate indicators in both languages
+indicator_names_en = {
+    'ALLSKY_KT': 'Sky Insolation Clarity Index',
+    'T2M': 'Average Air Temperature at 2 Meters Height (°C)',
+    'PRECTOTCORR': 'Rainfall (mm)',
+    'PS': 'Average Surface Pressure at the Earth\'s Surface (kPa)',
+    'WS10M': 'Average Wind Speed at 10 Meters Height (m/s)'
+}
+
+indicator_names_id = {
     'ALLSKY_KT': 'Indeks Kejernihan Langit',
     'T2M': 'Suhu Udara Rata-Rata pada Ketinggian 2 Meter (°C)',
     'PRECTOTCORR': 'Curah Hujan (mm)',
@@ -24,12 +32,15 @@ def plot_rainfall_line(df):
                       template='plotly_dark')
     return fig
 
-def plot_climate_indicator(df, indicator):
+def plot_climate_indicator(df, indicator, lang):
+    # Choose the correct dictionary based on the selected language
+    indicator_names = indicator_names_en if lang == "English" else indicator_names_id
+
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator_names[indicator]))
+    fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator))
     fig.update_layout(title=indicator_names[indicator],
                       xaxis_title='Date',
-                      yaxis_title=indicator,
+                      yaxis_title=indicator_names[indicator],
                       template='plotly_dark')
     return fig
 
@@ -117,7 +128,7 @@ def app():
     # Menampilkan Line Chart dari indikator iklim lainnya satu per satu
     climate_indicators = ['ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M']
     for indicator in climate_indicators:
-        fig_indicator = plot_climate_indicator(filtered_df_class, indicator)
+        fig_indicator = plot_climate_indicator(filtered_df_class, indicator, lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
 
 if __name__ == "__main__":
