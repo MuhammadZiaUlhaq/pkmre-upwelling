@@ -12,7 +12,7 @@ def app():
         st.title("About Us")
         st.header("Project Description")
         st.markdown("""
-            This dashboard is part of the output from the Program Kreatifitas Mahasiswa – Riset Eksakta (PKM - RE) conducted by students of Syiah Kuala University. This project is designed to help Floating Net Cage (KJA) farmers in Danau Laut Tawar make decisions in fish farming.
+            This dashboard is part of the output from the Program Kreatifitas Mahasiswa – Riset Eksakta (PKM - RE) conducted by students of Syiah Kuala University. This project is designed to help Floating Net Cage farmers in Danau Laut Tawar make decisions in fish farming.
         """)
 
         col_1, col_2, col_3 = st.columns(3)
@@ -135,14 +135,14 @@ def app():
             1. Mengumpulkan dan menganalisis data kejadian upwelling dan indikator iklim dengan akurat.
             2. Mengembangkan model prediksi upwelling yang handal berdasarkan data historis.
             3. Menyediakan dashboard interaktif untuk memantau dan meramalkan risiko upwelling.
-            4. Menyebarkan informasi mengenai risiko upwelling kepada pembudidaya KJA secara efektif.
+            4. Menyebarkan informasi mengenai risiko upwelling kepada Pembudidaya KJA secara efektif.
             """)
         with col_3:
             st.header("Tujuan")
             st.markdown("""
             1.	Menyediakan sumber infomrasi yang terpercaya terkait risiko upwelling di danau laut tawar.
             2.	Meningkatkan kewaspadaan dan kesiapsiagaan pembudaya KJA Danau Laut Tawar terhadap potensi risiko upwelling.
-            3.	Menduung upaya mitigasi dan penanggulangan risiko upwelling di danau laut tawar.
+            3.	Mendukung upaya mitigasi dan penanggulangan risiko upwelling di danau laut tawar.
             """)
 
         st.header("Dataset yang Digunakan")

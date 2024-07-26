@@ -26,7 +26,7 @@ def app():
     start_date, end_date = date_range
     filtered_df = df.loc[start_date:end_date]
 
-    st.write(f"Menampilkan data dari {start_date} hingga {end_date}")
+    st.write(f"Menampilkan data hasil forecast dari {start_date} hingga {end_date}")
 
     # Display the data and plot for each column
     st.subheader("CSV Data and Corresponding Plots")
