@@ -46,29 +46,9 @@ def plot_climate_indicator(df, indicator, lang):
 
 def app():
     # Language selection
-    lang = st.selectbox("Select Language / Pilih Bahasa", ["English", "Bahasa Indonesia"])
+    lang = st.selectbox("Select Language / Pilih Bahasa", ["Bahasa Indonesia", "English"])
 
-    if lang == "English":
-        # English content
-        st.title("Climate Indicator-Based Upwelling Monitoring and Prediction Dashboard in Danau Laut Tawar")
-        st.markdown("""
-            Welcome to the Lake Laut Tawar climate indicator-based Upwelling Monitoring and Prediction Dashboard! The local community utilizes this lake as one of the main sources of livelihood. By combining the data in a year, the potential fish production in Danau Laut Tawar can reach 196 tons. This figure is quite fantastic and shows how important the role of Danau Laut Tawar is in supporting the local economy and providing food for the local community. However, erratic climate change is destabilizing fish production in Danau Laut Tawar. One of the contributing factors is the upwelling phenomenon. In 2017, this phenomenon had harmed floating net cage (KJA) farmers in the freshwater lake, resulting in losses of hundreds of millions of rupiah.
-        """)
-        
-        column_header = 'Column descriptions of the table'
-        tampilan_header = 'Historical Data Display'
-        
-        column_description = """
-        1. DATE             : Records the date of the climate indicator
-        2. ALLSKY_KT        : Sky insolation clarity index
-        3. T2M              : Average air temperature at 2 meters height (°C)
-        4. PRECTOTCORR      : Rainfall (mm)
-        5. PS               : Average surface pressure at the earth's surface (kPa)
-        6. WS10M            : Average wind speed at 10 meters height (m/s)
-        7. Status           : Potential Upwelling Event
-        """
-
-    else:
+    if lang == "Bahasa Indonesia":
         # Indonesian content
         st.title("Dashboard Pemantauan dan Prediksi Upwelling Berbasis Indikator Iklim di Danau Laut Tawar")
         st.markdown("""
@@ -86,6 +66,26 @@ def app():
         5. PS           : Rata-rata tekanan permukaan di permukaan bumi (kPa)
         6. WS10M        : Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)
         7. Status       : Potensi Kejadian Upwelling
+        """
+
+    else:
+        # English content
+        st.title("Climate Indicator-Based Upwelling Monitoring and Prediction Dashboard in Danau Laut Tawar")
+        st.markdown("""
+            Welcome to the Lake Laut Tawar climate indicator-based Upwelling Monitoring and Prediction Dashboard! The local community utilizes this lake as one of the main sources of livelihood. By combining the data in a year, the potential fish production in Danau Laut Tawar can reach 196 tons. This figure is quite fantastic and shows how important the role of Danau Laut Tawar is in supporting the local economy and providing food for the local community. However, erratic climate change is destabilizing fish production in Danau Laut Tawar. One of the contributing factors is the upwelling phenomenon. In 2017, this phenomenon had harmed floating net cage (KJA) farmers in the freshwater lake, resulting in losses of hundreds of millions of rupiah.
+        """)
+        
+        column_header = 'Column descriptions of the table'
+        tampilan_header = 'Historical Data Display'
+        
+        column_description = """
+        1. DATE             : Records the date of the climate indicator
+        2. ALLSKY_KT        : Sky insolation clarity index
+        3. T2M              : Average air temperature at 2 meters height (°C)
+        4. PRECTOTCORR      : Rainfall (mm)
+        5. PS               : Average surface pressure at the earth's surface (kPa)
+        6. WS10M            : Average wind speed at 10 meters height (m/s)
+        7. Status           : Potential Upwelling Event
         """
 
     # Load Dataset
