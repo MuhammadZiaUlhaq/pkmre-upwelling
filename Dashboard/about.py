@@ -14,6 +14,8 @@ def app():
         st.markdown("""
             Pembuatan dashboard ini merupakan salah satu luaran dari Pogram Kreativitas Mahasiswa  –Riset Eksakta (PKM - RE) yang dikerjakan oleh Mahasiswa Universitas Syiah Kuala. Projek ini disusun untuk tujuan membantu Pembudidaya Keramba Jaring Apung (KJA) Danau Laut Tawar untuk mengambil Keputusan dalam membudidayakan ikan.
         """)
+        st.image('Artboard 1.png', use_column_width=True)
+
 
         col_1, col_2, col_3 = st.columns(3)
         with col_1:
@@ -127,6 +129,8 @@ def app():
         st.markdown("""
             This dashboard is part of the output from the Program Kreatifitas Mahasiswa – Riset Eksakta (PKM - RE) conducted by students of Syiah Kuala University. This project is designed to help Floating Net Cage farmers in Danau Laut Tawar make decisions in fish farming.
         """)
+        st.image('Artboard 1.png', use_column_width=True)
+
 
         col_1, col_2, col_3 = st.columns(3)
         with col_1:
