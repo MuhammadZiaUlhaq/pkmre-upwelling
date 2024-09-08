@@ -20,147 +20,129 @@ indicator_names_id = {
     'WS10M': 'Kecepatan Angin Rata-Rata pada Ketinggian 10 Meter (m/s)'
 }
 
-def plot_rainfall_line(df):
-    fig = go.Figure()
-    for event_type in df['Status'].unique():
-        event_data = df[df['Status'] == event_type]
-        fig.add_trace(go.Scatter(x=event_data.index, y=event_data['PRECTOTCORR'],
-                                 mode='lines', name=event_type))
-    fig.update_layout(title='Curah Hujan Rata-Rata dari Waktu ke Waktu',
-                      xaxis_title='Tanggal',
-                      yaxis_title='Curah Hujan (PRECTOTCORR)',
-                      template='plotly_dark')
-    return fig
-
 def plot_climate_indicator(df, indicator, lang):
-    # Pilih nama indikator berdasarkan bahasa yang dipilih
+    # Select indicator name based on chosen language
     indicator_names = indicator_names_en if lang == "English" else indicator_names_id
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator))
     fig.update_layout(title=indicator_names[indicator],
-                      xaxis_title='Tanggal',
+                      xaxis_title='Date' if lang == 'English' else 'Tanggal',
                       yaxis_title=indicator_names[indicator],
                       template='plotly_dark')
     return fig
 
 def app():
-    # Set Bahasa default sebagai "Bahasa Indonesia"
+    # Set default language as "Bahasa Indonesia"
     lang = st.selectbox("Pilih Bahasa / Select Language", ["Bahasa Indonesia", "English"])
 
     if lang == "Bahasa Indonesia":
-        # Konten dalam Bahasa Indonesia
         st.title("Dashboard Pemantauan dan Prediksi Upwelling Berbasis Indikator Iklim di Danau Laut Tawar")
         st.markdown("""
-            Selamat datang di Dashboard Pemantauan dan Prediksi Upwelling berbasis indikator iklim Danau Laut Tawar! 
-            Masyarakat setempat memanfaatkan danau ini sebagai salah satu sumber mata pencaharian utama. 
+            Selamat datang di Dashboard Pemantauan dan Prediksi Upwelling berbasis indikator iklim Danau Laut Tawar!
             Dengan menggabungkan data dalam setahun, potensi produksi ikan di Danau Laut Tawar dapat mencapai 196 ton. 
-            Angka ini cukup fantastis dan menunjukkan betapa pentingnya peran Danau Laut Tawar dalam menyokong ekonomi lokal serta menyediakan pangan bagi masyarakat setempat. 
-            Namun, perubahan iklim yang tidak menentu mengganggu kestabilan produksi ikan di Danau Laut Tawar. 
-            Salah satu faktor penyebabnya adalah fenomena upwelling. Pada tahun 2017, fenomena ini pernah merugikan pembudidaya Keramba Jaring Apung (KJA) di Danau Laut Tawar, hingga mengakibatkan kerugian mencapai ratusan juta rupiah.
+            Namun, perubahan iklim yang tidak menentu mengganggu kestabilan produksi ikan di Danau Laut Tawar.
         """)
-
         column_header = 'Deskripsi Kolom dari Tabel'
         tampilan_header = 'Tampilan Data Historis'
-        
         column_description = """
-        1. DATE         : Kolom yang mencatat tanggal indikator iklim
+        1. DATE         : Tanggal indikator iklim
         2. ALLSKY_KT    : Indeks kejernihan insolasi langit
         3. T2M          : Suhu udara rata-rata pada ketinggian 2 meter (°C)
         4. PRECTOTCORR  : Curah hujan (mm)
-        5. PS           : Tekanan permukaan rata-rata di permukaan bumi (kPa)
+        5. PS           : Tekanan permukaan rata-rata (kPa)
         6. WS10M        : Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)
         7. Status       : Potensi Kejadian Upwelling
         """
-
     else:
-        # Konten dalam Bahasa Inggris
         st.title("Climate Indicator-Based Upwelling Monitoring and Prediction Dashboard in Danau Laut Tawar")
         st.markdown("""
-            Welcome to the Lake Laut Tawar climate indicator-based Upwelling Monitoring and Prediction Dashboard! The local community utilizes this lake as one of the main sources of livelihood. By combining the data in a year, the potential fish production in Danau Laut Tawar can reach 196 tons. This figure is quite fantastic and shows how important the role of Danau Laut Tawar is in supporting the local economy and providing food for the local community. However, erratic climate change is destabilizing fish production in Danau Laut Tawar. One of the contributing factors is the upwelling phenomenon. In 2017, this phenomenon had harmed floating net cage (KJA) farmers in the freshwater lake, resulting in losses of hundreds of millions of rupiah.
+            Welcome to the Lake Laut Tawar climate indicator-based Upwelling Monitoring and Prediction Dashboard!
+            By combining the data in a year, the potential fish production in Danau Laut Tawar can reach 196 tons.
+            However, erratic climate change is destabilizing fish production in Danau Laut Tawar.
         """)
-        
         column_header = 'Column descriptions of the table'
         tampilan_header = 'Historical Data Display'
-        
         column_description = """
-        1. DATE             : Records the date of the climate indicator
+        1. DATE             : Date of the climate indicator
         2. ALLSKY_KT        : Sky insolation clarity index
         3. T2M              : Average air temperature at 2 meters height (°C)
         4. PRECTOTCORR      : Rainfall (mm)
-        5. PS               : Average surface pressure at the earth's surface (kPa)
+        5. PS               : Average surface pressure (kPa)
         6. WS10M            : Average wind speed at 10 meters height (m/s)
         7. Status           : Potential Upwelling Event
         """
 
-    # Memuat Dataset
+    # Load Dataset
     df = load_data("Dashboard/data/HASIL_CLUSTERING.csv")
+    df['DATE'] = pd.to_datetime(df['DATE'])
+    
+    # Create two separate dataframes for table and plotting
+    df_table = df.copy()
+    df_plot = df.copy()
 
-    # Mengubah format tanggal menjadi 'DD-MM-YYYY' dan menghilangkan waktu
-    df_class = df.copy()
-    df_class['DATE'] = pd.to_datetime(df_class['DATE']).dt.strftime('%d-%m-%Y')
-    df_class.set_index('DATE', inplace=True)
+    # Convert date to string for display in table
+    df_table['DATE_STR'] = df_table['DATE'].dt.strftime('%d-%m-%Y')
+    df_table.set_index('DATE_STR', inplace=True)
 
-    # Pemilihan Rentang Waktu
+    # Filter based on date range
     min_date = pd.to_datetime("2017-01-01")
     max_date = pd.to_datetime("2023-12-31")
-
     date_range = st.date_input("Pilih Rentang Waktu" if lang == "Bahasa Indonesia" else "Select Date Range", 
                                [min_date, max_date], 
                                min_value=min_date, max_value=max_date, key="date_range")
-    start_date, end_date = date_range
-    filtered_df_class = df_class.loc[start_date:end_date]
+    
+    start_date, end_date = pd.to_datetime(date_range[0]), pd.to_datetime(date_range[1])
+    df_table = df_table[(df_table['DATE'] >= start_date) & (df_table['DATE'] <= end_date)]
+    df_plot = df_plot[(df_plot['DATE'] >= start_date) & (df_plot['DATE'] <= end_date)]
 
-    # Menampilkan Data Historis
-    st.write(filtered_df_class)
+    # Display historical data
+    st.write(df_table[['ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M', 'Status']])
 
-    # Penjelasan Struktur Data
+    # Column descriptions
     st.header(column_header)
     st.text(column_description)
 
-    # Menampilkan Plot Kejadian Upwelling dan Tidak Upwelling
-    fig = go.Figure()
-    for Status, color in zip(filtered_df_class['Status'].unique(), ['red', 'green']):
-        filtered_df = filtered_df_class[filtered_df_class['Status'] == Status]
-        fig.add_trace(go.Scatter(x=filtered_df.index, y=filtered_df['PRECTOTCORR'],
-                             mode='markers', name=Status, line=dict(color=color)))
-    fig.update_layout(title='Potensi Upwelling vs Tidak Berpotensi Upwelling Berdasarkan Indikator Iklim' if lang == "Bahasa Indonesia" 
-                      else 'Potential Upwelling vs Non-Upwelling Events Based on Climate Indicators',
-                  xaxis_title='Tanggal' if lang == "Bahasa Indonesia" else 'Date',
-                  yaxis_title='Curah Hujan (PRECTOTCORR)' if lang == "Bahasa Indonesia" else 'Rainfall (PRECTOTCORR)',
-                  template='plotly_dark')
+    # Plot Upwelling Events vs Non-Upwelling Events with markers and specific colors
     st.header(tampilan_header)
+    fig = go.Figure()
+
+    for status, color in zip(df_plot['Status'].unique(), ['red', 'green']):
+        filtered_df = df_plot[df_plot['Status'] == status]
+        fig.add_trace(go.Scatter(x=filtered_df['DATE'], y=filtered_df['PRECTOTCORR'],
+                                 mode='markers', marker=dict(color=color), name=status))
+
+    fig.update_layout(title='Potential Upwelling vs Non-Upwelling Events' if lang == "English" 
+                      else 'Potensi Upwelling vs Tidak Berpotensi Upwelling',
+                      xaxis_title='Date' if lang == "English" else 'Tanggal',
+                      yaxis_title='Rainfall (PRECTOTCORR)' if lang == "English" else 'Curah Hujan (PRECTOTCORR)',
+                      template='plotly_dark')
     st.plotly_chart(fig, use_container_width=True)
 
-    # Pilihan Indikator Iklim untuk Ditampilkan
-    st.header("Pilih Indikator Iklim" if lang == "Bahasa Indonesia" else "Select Climate Indicators")
+    # Climate Indicator Selection
+    st.header("Select Climate Indicators" if lang == "English" else "Pilih Indikator Iklim")
+    with st.expander("Choose Climate Indicators to Display:" if lang == "English" else "Pilih Indikator Iklim yang Ingin Ditampilkan:"):
+        allsky_kt = st.checkbox('ALLSKY_KT' if lang == "English" else 'ALLSKY_KT - Indeks Kejernihan Langit')
+        t2m = st.checkbox('T2M' if lang == "English" else 'T2M - Suhu Udara')
+        prectotcorr = st.checkbox('PRECTOTCORR' if lang == "English" else 'PRECTOTCORR - Curah Hujan')
+        ps = st.checkbox('PS' if lang == "English" else 'PS - Tekanan Permukaan')
+        ws10m = st.checkbox('WS10M' if lang == "English" else 'WS10M - Kecepatan Angin')
 
-    with st.expander("Pilih Indikator Iklim yang Ingin Ditampilkan:" if lang == "Bahasa Indonesia" else "Choose Climate Indicators to Display:"):
-        allsky_kt = st.checkbox('ALLSKY_KT - Indeks Kejernihan Langit' if lang == "Bahasa Indonesia" else 'ALLSKY_KT - Sky Insolation Clarity Index')
-        t2m = st.checkbox('T2M - Suhu Udara Rata-Rata pada Ketinggian 2 Meter (°C)' if lang == "Bahasa Indonesia" else 'T2M - Average Air Temperature at 2 Meters Height (°C)')
-        prectotcorr = st.checkbox('PRECTOTCORR - Curah Hujan (mm)' if lang == "Bahasa Indonesia" else 'PRECTOTCORR - Rainfall (mm)')
-        ps = st.checkbox('PS - Tekanan Permukaan Rata-Rata (kPa)' if lang == "Bahasa Indonesia" else 'PS - Average Surface Pressure (kPa)')
-        ws10m = st.checkbox('WS10M - Kecepatan Angin Rata-Rata pada Ketinggian 10 Meter (m/s)' if lang == "Bahasa Indonesia" else 'WS10M - Average Wind Speed at 10 Meters Height (m/s)')
-
-    # Menampilkan Indikator Iklim yang Dipilih
+    # Plot selected indicators
     if allsky_kt:
-        fig_indicator = plot_climate_indicator(filtered_df_class, 'ALLSKY_KT', lang)
+        fig_indicator = plot_climate_indicator(df_plot, 'ALLSKY_KT', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
-    
     if t2m:
-        fig_indicator = plot_climate_indicator(filtered_df_class, 'T2M', lang)
+        fig_indicator = plot_climate_indicator(df_plot, 'T2M', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
-    
     if prectotcorr:
-        fig_indicator = plot_climate_indicator(filtered_df_class, 'PRECTOTCORR', lang)
+        fig_indicator = plot_climate_indicator(df_plot, 'PRECTOTCORR', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
-    
     if ps:
-        fig_indicator = plot_climate_indicator(filtered_df_class, 'PS', lang)
+        fig_indicator = plot_climate_indicator(df_plot, 'PS', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
-    
     if ws10m:
-        fig_indicator = plot_climate_indicator(filtered_df_class, 'WS10M', lang)
+        fig_indicator = plot_climate_indicator(df_plot, 'WS10M', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
 
 if __name__ == "__main__":
