@@ -96,9 +96,9 @@ def app():
     # Memuat Dataset
     df = load_data("Dashboard/data/HASIL_CLUSTERING.csv")
 
-    # Mengubah format tanggal
+    # Mengubah format tanggal menjadi 'DD-MM-YYYY' dan menghilangkan waktu
     df_class = df.copy()
-    df_class['DATE'] = pd.to_datetime(df_class['DATE'])
+    df_class['DATE'] = pd.to_datetime(df_class['DATE']).dt.strftime('%d-%m-%Y')
     df_class.set_index('DATE', inplace=True)
 
     # Pemilihan Rentang Waktu
@@ -133,7 +133,7 @@ def app():
     st.plotly_chart(fig, use_container_width=True)
 
     # Pilihan Indikator Iklim untuk Ditampilkan
-    st.header("Pilih Indikator Iklim yang Ingin Ditampilkan" if lang == "Bahasa Indonesia" else "Select Climate Indicators")
+    st.header("Pilih Indikator Iklim" if lang == "Bahasa Indonesia" else "Select Climate Indicators")
 
     with st.expander("Pilih Indikator Iklim yang Ingin Ditampilkan:" if lang == "Bahasa Indonesia" else "Choose Climate Indicators to Display:"):
         allsky_kt = st.checkbox('ALLSKY_KT - Indeks Kejernihan Langit' if lang == "Bahasa Indonesia" else 'ALLSKY_KT - Sky Insolation Clarity Index')
