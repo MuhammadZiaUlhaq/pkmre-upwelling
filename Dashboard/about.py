@@ -5,7 +5,7 @@ from st_social_media_links import SocialMediaIcons
 def app():
 
     # Language selection
-    lang = st.selectbox("Select Language / Pilih Bahasa", ["Bahasa Indonesia", "English"])
+    lang = st.selectbox("Select Language / Pilih Bahasa", ["English", "Bahasa Indonesia"])
 
     if lang == "Bahasa Indonesia":
         # Indonesian content
