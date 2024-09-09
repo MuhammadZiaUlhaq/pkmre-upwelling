@@ -150,7 +150,7 @@ def app():
     if ws10m:
         fig_indicator = plot_climate_indicator(df_plot, 'WS10M', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
-        st.markdown('This graph shows the change in average wind speed at a height of 10 meters from the ground, from 2017 to 2024. Wind speeds range from 0.5 meters per second to 2.5 meters per second. The fluctuations in this graph show variations in wind speed, with some periods recording higher wind speeds.' if lang == "English" else 'Grafik ini memperlihatkan perubahan kecepatan angin rata-rata pada ketinggian 10 meter dari permukaan tanah, dari 2017 hingga 2024. Kecepatan angin berkisar antara 0,5 meter per detik hingga 2,5 meter per detik. Fluktuasi dalam grafik ini menunjukkan variasi dalam kecepatan angin, dengan beberapa periode yang mencatat kecepatan angin yang lebih tinggi.')
+        st.markdown('This graph shows the change in average wind speed at a height of 10 meters from the ground, from 2017 to 2024. Wind speeds range from 0.5 meters per second to 2.5 meters per second. The fluctuations in this graph show variations in wind speed, with some periods recording higher wind speeds.' if lang == "English" else 'Grafik ini memperlihatkan perubahan kecepatan angin rata-rata pada ketinggian 10 meter dari permukaan tanah, dari 2017 hingga 2024. Kecepatan angin berkisar antara 0,5 meter per detik hingga 2,5 meter per detik. Fluktuasi dalam grafik ini menunjukkan variasi dalam kecepatan angin, dengan beberapa periode yang mencatat kecepatan angin yang lebih tinggi.', unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
