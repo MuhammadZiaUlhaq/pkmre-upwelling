@@ -122,17 +122,22 @@ def app():
     # Climate Indicator Selection
     st.header("Select Climate Indicators" if lang == "English" else "Pilih Indikator Iklim")
     with st.expander("Choose Climate Indicators to Display:" if lang == "English" else "Pilih Indikator Iklim yang Ingin Ditampilkan:"):
-        allsky_kt = st.checkbox('ALLSKY_KT' if lang == "English" else 'ALLSKY_KT - Indeks Kejernihan Langit')
-        t2m = st.checkbox('T2M' if lang == "English" else 'T2M - Suhu Udara')
-        prectotcorr = st.checkbox('PRECTOTCORR' if lang == "English" else 'PRECTOTCORR - Curah Hujan')
-        ps = st.checkbox('PS' if lang == "English" else 'PS - Tekanan Permukaan')
-        ws10m = st.checkbox('WS10M' if lang == "English" else 'WS10M - Kecepatan Angin')
+        # Checkbox to select all indicators
+        select_all = st.checkbox('Select All Indicators' if lang == "English" else 'Tampilkan Semua Indikator')
+        
+        # Set individual checkboxes depending on the "Select All" checkbox
+        allsky_kt = st.checkbox('ALLSKY_KT' if lang == "English" else 'ALLSKY_KT - Indeks Kejernihan Langit', value=select_all)
+        t2m = st.checkbox('T2M' if lang == "English" else 'T2M - Suhu Udara', value=select_all)
+        prectotcorr = st.checkbox('PRECTOTCORR' if lang == "English" else 'PRECTOTCORR - Curah Hujan', value=select_all)
+        ps = st.checkbox('PS' if lang == "English" else 'PS - Tekanan Permukaan', value=select_all)
+        ws10m = st.checkbox('WS10M' if lang == "English" else 'WS10M - Kecepatan Angin', value=select_all)
 
     # Plot selected indicators
     if allsky_kt:
         fig_indicator = plot_climate_indicator(df_plot, 'ALLSKY_KT', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
         st.markdown('This graph displays the sky clarity index values from 2017 to 2024. This index measures how clear or bright the sky is, with values ranging from 0.1 (very cloudy) to 0.7 (very bright). Changes in this index show daily variations in sky clarity, which can be affected by factors such as clouds or pollution.' if lang == "English" else 'Grafik ini menampilkan nilai indeks kejernihan langit dari 2017 hingga 2024. Indeks ini mengukur seberapa jernih atau cerah langit, dengan nilai berkisar antara 0,1 (sangat keruh) hingga 0,7 (sangat cerah). Perubahan indeks ini menunjukkan variasi harian dalam kejernihan langit, yang bisa dipengaruhi oleh faktor-faktor seperti awan atau polusi.')
+
     if t2m:
         fig_indicator = plot_climate_indicator(df_plot, 'T2M', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
@@ -142,6 +147,7 @@ def app():
         fig_indicator = plot_climate_indicator(df_plot, 'PRECTOTCORR', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
         st.markdown('This graph shows the changes in rainfall amounts from 2017 to 2024. Rainfall amounts are measured in millimeters (mm), with considerable variation each year. Some periods show high rainfall, particularly at the end of the data in 2024, which may signal heavy rainfall events or an intense rainy season.' if lang == "English" else 'Grafik ini menunjukkan perubahan jumlah curah hujan dari tahun 2017 hingga 2024. Jumlah curah hujan diukur dalam milimeter (mm), dengan variasi yang cukup besar setiap tahunnya. Beberapa periode menunjukkan curah hujan yang tinggi, khususnya pada akhir data di tahun 2024, yang mungkin menandakan kejadian hujan lebat atau musim hujan intens.')
+
     if ps:
         fig_indicator = plot_climate_indicator(df_plot, 'PS', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
@@ -151,7 +157,6 @@ def app():
         fig_indicator = plot_climate_indicator(df_plot, 'WS10M', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
         st.markdown('This graph shows the change in average wind speed at a height of 10 meters from the ground, from 2017 to 2024. Wind speeds range from 0.5 meters per second to 2.5 meters per second. The fluctuations in this graph show variations in wind speed, with some periods recording higher wind speeds.' if lang == "English" else 'Grafik ini memperlihatkan perubahan kecepatan angin rata-rata pada ketinggian 10 meter dari permukaan tanah, dari 2017 hingga 2024. Kecepatan angin berkisar antara 0,5 meter per detik hingga 2,5 meter per detik. Fluktuasi dalam grafik ini menunjukkan variasi dalam kecepatan angin, dengan beberapa periode yang mencatat kecepatan angin yang lebih tinggi.', unsafe_allow_html=True)
-
 
 if __name__ == "__main__":
     app()

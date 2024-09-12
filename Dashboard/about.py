@@ -34,7 +34,7 @@ def app():
         with col_3:
             st.header("Tujuan")
             st.markdown("""
-            1.	Menyediakan sumber infomrasi yang terpercaya terkait risiko upwelling di danau laut tawar.
+            1.	Menyediakan sumber informasi yang terpercaya terkait risiko upwelling di danau laut tawar.
             2.	Meningkatkan kewaspadaan dan kesiapsiagaan pembudaya KJA Danau Laut Tawar terhadap potensi risiko upwelling.
             3.	Mendukung upaya mitigasi dan penanggulangan risiko upwelling di danau laut tawar.
             """)

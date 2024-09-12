@@ -30,13 +30,14 @@ class MultiApp:
                 menu_icon='bi-cast',
                 default_index=0,
                 styles={
-                    "container": {"padding": "5!important", "background-color": '#0f1117'},
-                    "icon": {"color": "white", "font-size": "23px"},
-                    "nav-link": {"color": "white", "font-size": "20px", "text-align": "left", "margin": "0px",
+                    "container": {"padding": "5!important"},
+                    "icon": {"font-size": "23px"},
+                    "nav-link": { "font-size": "20px", "text-align": "left", "margin": "0px",
                                  "--hover-color": "blue"},
                     "nav-link-selected": {"background-color": "#02ab21"},
                 }
             )
+            st.image('WhatsApp Image 2024-09-12 at 20.52.51_023c9d4d.png', use_column_width=True)
 
         # Main content
         if app == "Home":
