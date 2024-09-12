@@ -4,16 +4,17 @@ import joblib
 import numpy as np
 from datetime import datetime
 
-# Function to apply custom HTML style to the table
+# Function to apply custom HTML style to the entire row based on the Predictions column
 def render_styled_table(dataframe):
-    def color_prediction(val):
-        if val == "BERPOTENSI UPWELLING":
-            return f'background-color: yellow; color: black'
-        elif val == "TIDAK BERPOTENSI UPWELLING":
-            return f'background-color: lightgreen; color: black'
-        return ''
-
-    styled_table = dataframe.style.applymap(color_prediction, subset=['Predictions'])
+    def highlight_row(row):
+        prediction = row['Predictions']
+        if prediction == "BERPOTENSI UPWELLING":
+            return ['background-color: 	#FF7F7F; color: black'] * len(row)
+        elif prediction == "TIDAK BERPOTENSI UPWELLING":
+            return ['background-color: lightblue; color: black'] * len(row)
+        return [''] * len(row)
+    
+    styled_table = dataframe.style.apply(highlight_row, axis=1)
     return styled_table
 
 # Define a SessionState class for managing state across Streamlit reruns
