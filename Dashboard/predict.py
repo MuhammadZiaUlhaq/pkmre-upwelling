@@ -26,16 +26,6 @@ def predict(model, input_features):
     predictions = model.predict(input_features)
     return predictions
 
-# Function to apply background color and set font color to black for predictions
-def highlight_all(val, prediction):
-    if prediction == "BERPOTENSI UPWELLING":
-        color = 'background-color: yellow; color: black'
-    elif prediction == "TIDAK BERPOTENSI UPWELLING":
-        color = 'background-color: lightgreen; color: black'
-    else:
-        color = ''
-    return color
-
 # Function to display the prediction interface
 def app():
     st.title("Upwelling Prediction")
@@ -136,16 +126,8 @@ def app():
     for col in numeric_columns:
         formatted_data[col] = formatted_data[col].apply(lambda x: f"{x:.2f}")
 
-    # Apply the same background color for all columns based on the "Predictions" column
-    def apply_highlight(row):
-        prediction = row['Predictions']
-        return [highlight_all(cell, prediction) for cell in row]
-
-    # Apply highlight and render the table
-    styled_table = formatted_data.style.apply(apply_highlight, axis=1)
-
-    # Render and display the styled table with Streamlit
-    st.write(styled_table.render(), unsafe_allow_html=True)
+    # Display the formatted table using st.table
+    st.table(formatted_data)
 
     # Download button for CSV
     if not state.all_data.empty:
