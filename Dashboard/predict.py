@@ -29,9 +29,9 @@ def predict(model, input_features):
 # Function to apply background color and set font color to black for predictions
 def highlight_all(val, prediction):
     if prediction == "BERPOTENSI UPWELLING":
-        color = 'background-color: #FF7F7F; color: black'
+        color = 'background-color: yellow; color: black'
     elif prediction == "TIDAK BERPOTENSI UPWELLING":
-        color = 'background-color: lightblue; color: black'
+        color = 'background-color: lightgreen; color: black'
     else:
         color = ''
     return color
@@ -114,7 +114,7 @@ def app():
                     'PRECTOTCORR': [data['PRECTOTCORR']],
                     'PS': [data['PS']],
                     'WS10M': [data['WS10M']],
-                    'Predictions': [hasil_prediksi[0]]  # Assuming prediction returns a list-like structure
+                    'Predictions': hasil_prediksi[0]  # Ambil prediksi sebagai string, bukan list
                 }
 
                 state.all_data = pd.concat([state.all_data, pd.DataFrame(new_data)], ignore_index=True)
@@ -141,10 +141,11 @@ def app():
         prediction = row['Predictions']
         return [highlight_all(cell, prediction) for cell in row]
 
+    # Apply highlight and render the table
     styled_table = formatted_data.style.apply(apply_highlight, axis=1)
 
-    # Display the styled table
-    st.dataframe(styled_table)
+    # Render and display the styled table with Streamlit
+    st.write(styled_table.render(), unsafe_allow_html=True)
 
     # Download button for CSV
     if not state.all_data.empty:
