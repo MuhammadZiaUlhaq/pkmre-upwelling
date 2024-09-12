@@ -4,6 +4,18 @@ import joblib
 import numpy as np
 from datetime import datetime
 
+# Function to apply custom HTML style to the table
+def render_styled_table(dataframe):
+    def color_prediction(val):
+        if val == "BERPOTENSI UPWELLING":
+            return f'background-color: yellow; color: black'
+        elif val == "TIDAK BERPOTENSI UPWELLING":
+            return f'background-color: lightgreen; color: black'
+        return ''
+
+    styled_table = dataframe.style.applymap(color_prediction, subset=['Predictions'])
+    return styled_table
+
 # Define a SessionState class for managing state across Streamlit reruns
 class SessionState:
     def __init__(self):
@@ -126,8 +138,10 @@ def app():
     for col in numeric_columns:
         formatted_data[col] = formatted_data[col].apply(lambda x: f"{x:.2f}")
 
-    # Display the formatted table using st.table
-    st.table(formatted_data)
+    # Render the styled table using custom styling
+    styled_table = render_styled_table(formatted_data)
+    
+    st.write(styled_table.to_html(), unsafe_allow_html=True)
 
     # Download button for CSV
     if not state.all_data.empty:
