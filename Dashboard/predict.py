@@ -9,8 +9,7 @@ class SessionState:
     def __init__(self):
         self.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
         self.csv_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M'])
-        self.selected_date_data = {}
-        self.auto_fill_message_shown = False  # Add a flag to track if the message has been shown
+        self.auto_fill_message_shown = False  # Flag untuk menampilkan pesan auto-fill
 
 # Initialize state
 if 'session_state' not in st.session_state:
@@ -26,6 +25,16 @@ def load_model(model_path):
 def predict(model, input_features):
     predictions = model.predict(input_features)
     return predictions
+
+# Function to apply background color and set font color to black for predictions
+def highlight_all(val, prediction):
+    if prediction == "BERPOTENSI UPWELLING":
+        color = 'background-color: #FF7F7F; color: black'
+    elif prediction == "TIDAK BERPOTENSI UPWELLING":
+        color = 'background-color: lightblue; color: black'
+    else:
+        color = ''
+    return color
 
 # Function to display the prediction interface
 def app():
@@ -56,7 +65,7 @@ def app():
     input_data = []
 
     for selected_date in selected_dates:
-        selected_date_str = selected_date.strftime('%Y-%m-%d')
+        selected_date_str = selected_date.strftime('%d/%m/%Y')  # Change the format to dd/mm/yyyy
 
         # Check if data exists for selected date and auto-fill inputs
         if not state.csv_data.empty and selected_date in state.csv_data['DATE'].values:
@@ -105,7 +114,7 @@ def app():
                     'PRECTOTCORR': [data['PRECTOTCORR']],
                     'PS': [data['PS']],
                     'WS10M': [data['WS10M']],
-                    'Predictions': [hasil_prediksi]
+                    'Predictions': [hasil_prediksi[0]]  # Assuming prediction returns a list-like structure
                 }
 
                 state.all_data = pd.concat([state.all_data, pd.DataFrame(new_data)], ignore_index=True)
@@ -127,10 +136,15 @@ def app():
     for col in numeric_columns:
         formatted_data[col] = formatted_data[col].apply(lambda x: f"{x:.2f}")
 
-    # Format Predictions column if necessary (assuming it's a string representation of list)
-    formatted_data['Predictions'] = formatted_data['Predictions'].apply(lambda x: x[0] if isinstance(x, list) else x)
+    # Apply the same background color for all columns based on the "Predictions" column
+    def apply_highlight(row):
+        prediction = row['Predictions']
+        return [highlight_all(cell, prediction) for cell in row]
 
-    st.table(formatted_data)
+    styled_table = formatted_data.style.apply(apply_highlight, axis=1)
+
+    # Display the styled table
+    st.dataframe(styled_table)
 
     # Download button for CSV
     if not state.all_data.empty:
