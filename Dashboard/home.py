@@ -26,22 +26,8 @@ def plot_climate_indicator(df, indicator, lang):
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator))
-    
-    # Adding a horizontal line (at y=0) and vertical line (at x=mean of x axis)
-    fig.add_shape(type="line",
-                  x0=df.index.min(), x1=df.index.max(), y0=0, y1=0,
-                  line=dict(color="LightSeaGreen", width=2, dash="dash"))
-    
-    fig.add_shape(type="line",
-                  x0=df.index.mean(), x1=df.index.mean(), y0=df[indicator].min(), y1=df[indicator].max(),
-                  line=dict(color="LightSeaGreen", width=2, dash="dash"))
-
-    # Ensure axis lines are visible
-    fig.update_xaxes(showline=True, linewidth=2, linecolor='white', mirror=True)
-    fig.update_yaxes(showline=True, linewidth=2, linecolor='white', mirror=True)
-
     fig.update_layout(title=indicator_names[indicator],
-                      xaxis_title='Year' if lang == 'English' else 'Tahun',
+                      xaxis_title='Date' if lang == 'English' else 'Tanggal',
                       yaxis_title=indicator_names[indicator],
                       template='plotly_dark')
     return fig
@@ -128,7 +114,7 @@ def app():
 
     fig.update_layout(title='Potential Upwelling vs Non-Upwelling Events' if lang == "English" 
                       else 'Potensi Upwelling vs Tidak Berpotensi Upwelling',
-                      xaxis_title='Year' if lang == "English" else 'Tahun',
+                      xaxis_title='Date' if lang == "English" else 'Tanggal',
                       yaxis_title='Rainfall (PRECTOTCORR)' if lang == "English" else 'Curah Hujan (PRECTOTCORR)',
                       template='plotly_dark')
     st.plotly_chart(fig, use_container_width=True)
