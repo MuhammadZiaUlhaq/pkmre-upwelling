@@ -36,6 +36,10 @@ def plot_climate_indicator(df, indicator, lang):
                   x0=df.index.mean(), x1=df.index.mean(), y0=df[indicator].min(), y1=df[indicator].max(),
                   line=dict(color="LightSeaGreen", width=2, dash="dash"))
 
+    # Ensure axis lines are visible
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='white', mirror=True)
+    fig.update_yaxes(showline=True, linewidth=2, linecolor='white', mirror=True)
+
     fig.update_layout(title=indicator_names[indicator],
                       xaxis_title='Year' if lang == 'English' else 'Tahun',
                       yaxis_title=indicator_names[indicator],
