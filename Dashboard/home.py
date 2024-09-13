@@ -26,6 +26,11 @@ def plot_climate_indicator(df, indicator, lang):
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator))
+    
+    # Ensure axis lines are visible
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='white', mirror=True)
+    fig.update_yaxes(showline=True, linewidth=2, linecolor='white', mirror=True)
+
     fig.update_layout(title=indicator_names[indicator],
                       xaxis_title='Date' if lang == 'English' else 'Tanggal',
                       yaxis_title=indicator_names[indicator],
@@ -117,6 +122,11 @@ def app():
                       xaxis_title='Date' if lang == "English" else 'Tanggal',
                       yaxis_title='Rainfall (PRECTOTCORR)' if lang == "English" else 'Curah Hujan (PRECTOTCORR)',
                       template='plotly_dark')
+
+    # Ensure axis lines are visible
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='white', mirror=True)
+    fig.update_yaxes(showline=True, linewidth=2, linecolor='white', mirror=True)
+
     st.plotly_chart(fig, use_container_width=True)
 
     # Climate Indicator Selection
@@ -136,27 +146,23 @@ def app():
     if allsky_kt:
         fig_indicator = plot_climate_indicator(df_plot, 'ALLSKY_KT', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
-        st.markdown('This graph displays the sky clarity index values from 2017 to 2024. This index measures how clear or bright the sky is, with values ranging from 0.1 (very cloudy) to 0.7 (very bright). Changes in this index show daily variations in sky clarity, which can be affected by factors such as clouds or pollution.' if lang == "English" else 'Grafik ini menampilkan nilai indeks kejernihan langit dari 2017 hingga 2024. Indeks ini mengukur seberapa jernih atau cerah langit, dengan nilai berkisar antara 0,1 (sangat keruh) hingga 0,7 (sangat cerah). Perubahan indeks ini menunjukkan variasi harian dalam kejernihan langit, yang bisa dipengaruhi oleh faktor-faktor seperti awan atau polusi.')
+        st.markdown('This graph displays the sky clarity index values from 2017 to 2024. This index measures how clear or bright the sky is, with values ranging from 0.1 (very cloudy) to 0.7 (very bright).' if lang == "English" else 'Grafik ini menampilkan nilai indeks kejernihan langit dari 2017 hingga 2024.')
 
     if t2m:
         fig_indicator = plot_climate_indicator(df_plot, 'T2M', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
-        st.markdown('This graph illustrates the change in average air temperature at 2 meters above ground level, over the period 2017 to 2024. Temperatures range from 17°C to 22°C. The graph shows a typical seasonal pattern, with regular increases and decreases in temperature over time.' if lang == "English" else 'Grafik ini menggambarkan perubahan suhu rata-rata udara di ketinggian 2 meter dari permukaan tanah, selama periode 2017 hingga 2024. Suhu berkisar antara 17°C hingga 22°C. Grafik ini menunjukkan pola musiman yang khas, dengan kenaikan dan penurunan suhu yang teratur seiring berjalannya waktu.')
 
     if prectotcorr:
         fig_indicator = plot_climate_indicator(df_plot, 'PRECTOTCORR', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
-        st.markdown('This graph shows the changes in rainfall amounts from 2017 to 2024. Rainfall amounts are measured in millimeters (mm), with considerable variation each year. Some periods show high rainfall, particularly at the end of the data in 2024, which may signal heavy rainfall events or an intense rainy season.' if lang == "English" else 'Grafik ini menunjukkan perubahan jumlah curah hujan dari tahun 2017 hingga 2024. Jumlah curah hujan diukur dalam milimeter (mm), dengan variasi yang cukup besar setiap tahunnya. Beberapa periode menunjukkan curah hujan yang tinggi, khususnya pada akhir data di tahun 2024, yang mungkin menandakan kejadian hujan lebat atau musim hujan intens.')
 
     if ps:
         fig_indicator = plot_climate_indicator(df_plot, 'PS', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
-        st.markdown('This graph shows the average surface atmospheric pressure measured in kilopascals (kPa), from 2017 to 2024. The atmospheric pressure ranges from 87.6 to 88.2 kPa. The changes seen indicate variations in atmospheric pressure, which can be influenced by changes in weather or air pressure systems.' if lang == "English" else 'Grafik ini menunjukkan tekanan atmosfer permukaan rata-rata yang diukur dalam kilopascal (kPa), dari tahun 2017 hingga 2024. Tekanan atmosfer berkisar antara 87,6 hingga 88,2 kPa. Perubahan yang terlihat menunjukkan adanya variasi tekanan atmosfer, yang dapat dipengaruhi oleh perubahan cuaca atau sistem tekanan udara.')
 
     if ws10m:
         fig_indicator = plot_climate_indicator(df_plot, 'WS10M', lang)
         st.plotly_chart(fig_indicator, use_container_width=True)
-        st.markdown('This graph shows the change in average wind speed at a height of 10 meters from the ground, from 2017 to 2024. Wind speeds range from 0.5 meters per second to 2.5 meters per second. The fluctuations in this graph show variations in wind speed, with some periods recording higher wind speeds.' if lang == "English" else 'Grafik ini memperlihatkan perubahan kecepatan angin rata-rata pada ketinggian 10 meter dari permukaan tanah, dari 2017 hingga 2024. Kecepatan angin berkisar antara 0,5 meter per detik hingga 2,5 meter per detik. Fluktuasi dalam grafik ini menunjukkan variasi dalam kecepatan angin, dengan beberapa periode yang mencatat kecepatan angin yang lebih tinggi.', unsafe_allow_html=True)
 
 if __name__ == "__main__":
     app()
