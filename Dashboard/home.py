@@ -27,7 +27,7 @@ def plot_climate_indicator(df, indicator, lang):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator))
     fig.update_layout(title=indicator_names[indicator],
-                      xaxis_title='Date' if lang == 'English' else 'Tanggal',
+                      xaxis_title='Year' if lang == 'English' else 'Tahun',
                       yaxis_title=indicator_names[indicator],
                       template='plotly_dark')
     return fig
