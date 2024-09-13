@@ -26,6 +26,16 @@ def plot_climate_indicator(df, indicator, lang):
 
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df.index, y=df[indicator], mode='lines', name=indicator))
+    
+    # Adding a horizontal line (at y=0) and vertical line (at x=mean of x axis)
+    fig.add_shape(type="line",
+                  x0=df.index.min(), x1=df.index.max(), y0=0, y1=0,
+                  line=dict(color="LightSeaGreen", width=2, dash="dash"))
+    
+    fig.add_shape(type="line",
+                  x0=df.index.mean(), x1=df.index.mean(), y0=df[indicator].min(), y1=df[indicator].max(),
+                  line=dict(color="LightSeaGreen", width=2, dash="dash"))
+
     fig.update_layout(title=indicator_names[indicator],
                       xaxis_title='Year' if lang == 'English' else 'Tahun',
                       yaxis_title=indicator_names[indicator],
