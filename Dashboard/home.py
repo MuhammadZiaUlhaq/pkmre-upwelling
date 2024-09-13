@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+import os
 from web_function import preprocess_dataframe, load_data  # Assuming these are your custom functions
 
 # Descriptive names for the climate indicators in both languages
@@ -44,47 +45,30 @@ def app():
     # Set default language as "Bahasa Indonesia"
     lang = st.selectbox("Pilih Bahasa / Select Language", ["Bahasa Indonesia", "English"])
 
-    if lang == "Bahasa Indonesia":
-        st.title("Dashboard Pemantauan dan Prediksi Upwelling Berbasis Indikator Iklim di Danau Laut Tawar")
-        st.markdown("""
-            Selamat datang di Dashboard Pemantauan dan Prediksi Upwelling berbasis indikator iklim Danau Laut Tawar!
-            Dengan menggabungkan data dalam setahun, potensi produksi ikan di Danau Laut Tawar dapat mencapai 196 ton. 
-            Namun, perubahan iklim yang tidak menentu mengganggu kestabilan produksi ikan di Danau Laut Tawar.
-        """)
-        column_header = 'Deskripsi Kolom dari Tabel'
-        tampilan_header = 'Tampilan Data Historis'
-        column_description = """
-        1. DATE         : Tanggal indikator iklim
-        2. ALLSKY_KT    : Indeks kejernihan insolasi langit
-        3. T2M          : Suhu udara rata-rata pada ketinggian 2 meter (°C)
-        4. PRECTOTCORR  : Curah hujan (mm)
-        5. PS           : Tekanan permukaan rata-rata (kPa)
-        6. WS10M        : Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)
-        7. Status       : Potensi Kejadian Upwelling
-        """
-    else:
-        st.title("Climate Indicator-Based Upwelling Monitoring and Prediction Dashboard in Danau Laut Tawar")
-        st.markdown("""
-            Welcome to the Lake Laut Tawar climate indicator-based Upwelling Monitoring and Prediction Dashboard!
-            By combining the data in a year, the potential fish production in Danau Laut Tawar can reach 196 tons.
-            However, erratic climate change is destabilizing fish production in Danau Laut Tawar.
-        """)
-        column_header = 'Column descriptions of the table'
-        tampilan_header = 'Historical Data Display'
-        column_description = """
-        1. DATE             : Date of the climate indicator
-        2. ALLSKY_KT        : Sky insolation clarity index
-        3. T2M              : Average air temperature at 2 meters height (°C)
-        4. PRECTOTCORR      : Rainfall (mm)
-        5. PS               : Average surface pressure (kPa)
-        6. WS10M            : Average wind speed at 10 meters height (m/s)
-        7. Status           : Potential Upwelling Event
-        """
+    # Add logging for debugging purposes
+    st.write(f"Selected language: {lang}")
 
-    # Load Dataset
-    df = load_data("Dashboard/data/HASIL_CLUSTERING.csv")
-    df['DATE'] = pd.to_datetime(df['DATE'])
+    # Verify file existence and load the dataset
+    file_path = "Dashboard/data/HASIL_CLUSTERING.csv"
     
+    if not os.path.exists(file_path):
+        st.error(f"Error: File '{file_path}' not found.")
+        return
+
+    try:
+        # Load Dataset
+        df = load_data(file_path)
+        st.write("Data Loaded Successfully")
+        st.write(df.head())  # Display first few rows to verify the data
+    except Exception as e:
+        st.error("Error loading data")
+        st.write(e)
+        return
+
+    # Check the structure of the dataframe
+    st.write("Dataframe Info:")
+    st.write(df.info())
+
     # Create two separate dataframes for table and plotting
     df_table = df.copy()
     df_plot = df.copy()
@@ -96,22 +80,53 @@ def app():
     # Filter based on date range
     min_date = pd.to_datetime("2017-01-01")
     max_date = pd.to_datetime("2023-12-31")
-    date_range = st.date_input("Pilih Rentang Waktu" if lang == "Bahasa Indonesia" else "Select Date Range", 
-                               [min_date, max_date], 
-                               min_value=min_date, max_value=max_date, key="date_range")
     
+    try:
+        date_range = st.date_input("Pilih Rentang Waktu" if lang == "Bahasa Indonesia" else "Select Date Range", 
+                                   [min_date, max_date], 
+                                   min_value=min_date, max_value=max_date, key="date_range")
+    except Exception as e:
+        st.error("Error processing date range")
+        st.write(e)
+        return
+    
+    # Extract start and end date
     start_date, end_date = pd.to_datetime(date_range[0]), pd.to_datetime(date_range[1])
     df_table = df_table[(df_table['DATE'] >= start_date) & (df_table['DATE'] <= end_date)]
     df_plot = df_plot[(df_plot['DATE'] >= start_date) & (df_plot['DATE'] <= end_date)]
 
     # Display historical data
-    st.write(df_table[['ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M', 'Status']])
+    try:
+        st.write(df_table[['ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M', 'Status']])
+    except KeyError as e:
+        st.error(f"Error: One of the required columns is missing - {e}")
+        return
 
     # Column descriptions
+    column_header = 'Deskripsi Kolom dari Tabel' if lang == 'Bahasa Indonesia' else 'Column descriptions of the table'
+    column_description = """
+        1. DATE         : Tanggal indikator iklim
+        2. ALLSKY_KT    : Indeks kejernihan insolasi langit
+        3. T2M          : Suhu udara rata-rata pada ketinggian 2 meter (°C)
+        4. PRECTOTCORR  : Curah hujan (mm)
+        5. PS           : Tekanan permukaan rata-rata (kPa)
+        6. WS10M        : Kecepatan angin rata-rata pada ketinggian 10 meter (m/s)
+        7. Status       : Potensi Kejadian Upwelling
+    """ if lang == "Bahasa Indonesia" else """
+        1. DATE             : Date of the climate indicator
+        2. ALLSKY_KT        : Sky insolation clarity index
+        3. T2M              : Average air temperature at 2 meters height (°C)
+        4. PRECTOTCORR      : Rainfall (mm)
+        5. PS               : Average surface pressure (kPa)
+        6. WS10M            : Average wind speed at 10 meters height (m/s)
+        7. Status           : Potential Upwelling Event
+    """
+
     st.header(column_header)
     st.text(column_description)
 
     # Plot Upwelling Events vs Non-Upwelling Events with markers and specific colors
+    tampilan_header = 'Tampilan Data Historis' if lang == 'Bahasa Indonesia' else 'Historical Data Display'
     st.header(tampilan_header)
     fig = go.Figure()
 
