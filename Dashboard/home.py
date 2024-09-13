@@ -114,7 +114,7 @@ def app():
 
     fig.update_layout(title='Potential Upwelling vs Non-Upwelling Events' if lang == "English" 
                       else 'Potensi Upwelling vs Tidak Berpotensi Upwelling',
-                      xaxis_title='Date' if lang == "English" else 'Tanggal',
+                      xaxis_title='Year' if lang == "English" else 'Tahun',
                       yaxis_title='Rainfall (PRECTOTCORR)' if lang == "English" else 'Curah Hujan (PRECTOTCORR)',
                       template='plotly_dark')
     st.plotly_chart(fig, use_container_width=True)
