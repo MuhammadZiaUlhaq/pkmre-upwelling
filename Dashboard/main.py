@@ -37,12 +37,10 @@ class MultiApp:
                     "nav-link-selected": {"background-color": "#02ab21"},
                 }
             )
-            col_1, col_2 = st.columns(2)
-            with col_1:
-                st.write('Created By')
-                st.image('usk.png')
-            with col_2:
-                st.image('WhatsApp Image 2024-09-12 at 20.52.51_023c9d4d.png', use_column_width=True)
+            st.write('Created By:')
+            st.image('usk.png')
+                
+            st.image('WhatsApp Image 2024-09-12 at 20.52.51_023c9d4d.png', use_column_width=True)
 
         # Main content
         if app == "Home":
