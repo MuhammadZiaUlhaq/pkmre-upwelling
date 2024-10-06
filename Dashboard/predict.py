@@ -9,7 +9,7 @@ def render_styled_table(dataframe):
     def highlight_row(row):
         prediction = row['Predictions']
         if prediction == "BERPOTENSI UPWELLING":
-            return ['background-color: 	#FF7F7F; color: black'] * len(row)
+            return ['background-color: #FF7F7F; color: black'] * len(row)
         elif prediction == "TIDAK BERPOTENSI UPWELLING":
             return ['background-color: lightblue; color: black'] * len(row)
         return [''] * len(row)
@@ -129,8 +129,14 @@ def app():
         st.success("Predictions completed for the selected date range.")
 
     # Display all_data table
+    # Convert DATE back to datetime for sorting
+    state.all_data['DATE'] = pd.to_datetime(state.all_data['DATE'], format='%d/%m/%Y')
+
+    # Sort by DATE in ascending order
     state.all_data = state.all_data.sort_values(by=['DATE'], ascending=True)
-    state.all_data = state.all_data.reset_index(drop=True)
+
+    # Convert back to string format after sorting
+    state.all_data['DATE'] = state.all_data['DATE'].dt.strftime('%d/%m/%Y')
 
     # Format numeric columns to display float with two decimal places
     formatted_data = state.all_data.copy()
