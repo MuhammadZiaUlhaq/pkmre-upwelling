@@ -11,4 +11,3 @@ st_social_media_links
 numpy
 scikit-learn
 datetime
-web_function
