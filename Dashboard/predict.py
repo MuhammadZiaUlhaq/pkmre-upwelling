@@ -49,17 +49,7 @@ def app():
 
     # Load data from data.csv
     try:
-        state.csv_data = pd.read_csv('Dashboard/data/2.csv', delimiter=';')
-
-        # Rename the columns to match the expected column names
-        state.csv_data.rename(columns={
-            'Indeks Kejernihan Langit': 'ALLSKY_KT',
-            'Suhu Pada Ketinggian 2 Meter': 'T2M',
-            'Curah Hujan': 'PRECTOTCORR',
-            'Tekanan Permukaan': 'PS',
-            'Kecepatan Angin': 'WS10M'
-        }, inplace=True)
-
+        state.csv_data = pd.read_csv('Dashboard/data/Data_Hasil_Forcast_2_Tahun_(2024-2025).csv')
         state.csv_data['DATE'] = pd.to_datetime(state.csv_data['DATE'], format='%d/%m/%Y')
         state.csv_data['DATE'] = state.csv_data['DATE'].dt.date  # Convert to date only (no time component)
     except Exception as e:
@@ -127,7 +117,7 @@ def app():
                     'PRECTOTCORR': [data['PRECTOTCORR']],
                     'PS': [data['PS']],
                     'WS10M': [data['WS10M']],
-                    'Predictions': hasil_prediksi[0]  # Use the first element of the prediction
+                    'Predictions': hasil_prediksi[0]  # Ambil prediksi sebagai string, bukan list
                 }
 
                 state.all_data = pd.concat([state.all_data, pd.DataFrame(new_data)], ignore_index=True)
@@ -150,7 +140,7 @@ def app():
 
     # Format numeric columns to display float with two decimal places
     formatted_data = state.all_data.copy()
-    numeric_columns = ['ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M']
+    numeric_columns = ['Indeks Kejernihan Langit', 'Suhu Pada Ketinggian 2 Meter', 'Curah Hujan', 'Tekanan Permukaan', 'Kecepatan Angin']
 
     for col in numeric_columns:
         formatted_data[col] = formatted_data[col].apply(lambda x: f"{x:.2f}")
