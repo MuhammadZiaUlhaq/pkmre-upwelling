@@ -51,11 +51,11 @@ def app():
         st.markdown("""
             #### Model Model Forecast (SVARMA dan Seasonal Autoregresive):
             Kami menggunakan dua model SVARMA dan Seaonal Autoregresive untuk meramalkan indicator iklim pada berbagai interval waktu:            
-            - All sky insilation cleaness index : MSE = 0,0526, RMSE = 0,2295, MAE = 0,1815
-            - Temperature: MSE = 0,0341, RMSE = 0,1847, MAE = 0,1514
-            - Precipitation: MSE = 0,0738, RMSE = 0,2721, MAE = 0,2191
-            - Surface pressure: MSE = 0,0399, RMSE = 0,1998, MAE = 0,1602
-            - Wind speed: MSE = 0,0287, RMSE = 0,1697, MAE = 0,1347
+            - Indeks Kejernihan Langit : MSE = 0,0526, RMSE = 0,2295, MAE = 0,1815
+            - Suhu Pada Ketinggian 2 Meter: MSE = 0,0341, RMSE = 0,1847, MAE = 0,1514
+            - Curah Hujan: MSE = 0,0738, RMSE = 0,2721, MAE = 0,2191
+            - Tekanan Permukaan: MSE = 0,0399, RMSE = 0,1998, MAE = 0,1602
+            - Kecepatan Angin: MSE = 0,0287, RMSE = 0,1697, MAE = 0,1347
 
 
             #### Model 	prediksi:
