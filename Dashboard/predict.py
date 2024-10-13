@@ -22,7 +22,7 @@ class SessionState:
     def __init__(self):
         self.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
         self.csv_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M'])
-        self.auto_fill_message_shown = False  # Flag untuk menampilkan pesan auto-fill
+        self.auto_fill_message_shown = True  # Flag untuk menampilkan pesan auto-fill
 
 # Initialize state
 if 'session_state' not in st.session_state:
@@ -49,7 +49,7 @@ def app():
 
     # Load data from data.csv
     try:
-        state.csv_data = pd.read_csv('Dashboard/data/Data_Hasil_Forcast_2_Tahun_(2024-2025).csv')
+        state.csv_data = pd.read_csv('Dashboard/data/2.csv', delimiter=';')
         state.csv_data['DATE'] = pd.to_datetime(state.csv_data['DATE'], format='%d/%m/%Y')
         state.csv_data['DATE'] = state.csv_data['DATE'].dt.date  # Convert to date only (no time component)
     except Exception as e:
