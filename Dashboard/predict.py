@@ -158,14 +158,23 @@ def app():
     for col in numeric_columns:
         formatted_data[col] = formatted_data[col].apply(lambda x: f"{x:.2f}")
 
+    # Rename the columns for display
+    formatted_data_display = formatted_data.rename(columns={
+        'ALLSKY_KT': 'Indeks Kejernihan Langit',
+        'T2M': 'Suhu Pada Ketinggian 2 Meter',
+        'PRECTOTCORR': 'Curah Hujan',
+        'PS': 'Tekanan Permukaan',
+        'WS10M': 'Kecepatan Angin'
+    })
+
     # Render the styled table using custom styling
-    styled_table = render_styled_table(formatted_data)
+    styled_table = render_styled_table(formatted_data_display)
     
     st.write(styled_table.to_html(), unsafe_allow_html=True)
 
     # Download button for CSV
     if not state.all_data.empty:
-        csv_data = state.all_data.to_csv(index=False)
+        csv_data = formatted_data_display.to_csv(index=False)
         st.download_button(label="Download CSV", data=csv_data, file_name='predicted_results.csv', key='download_button')
 
     st.text("This tool predicts upwelling potential based on various weather parameters. Use the input fields to enter the weather data, and click 'Predict Upwelling' to see the results.")
