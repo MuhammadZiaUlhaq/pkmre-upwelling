@@ -22,7 +22,7 @@ class SessionState:
     def __init__(self):
         self.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
         self.csv_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M'])
-        self.auto_fill_message_shown = True  # Flag untuk menampilkan pesan auto-fill
+        self.auto_fill_message_shown = False  # Flag untuk menampilkan pesan auto-fill
 
 # Initialize state
 if 'session_state' not in st.session_state:
