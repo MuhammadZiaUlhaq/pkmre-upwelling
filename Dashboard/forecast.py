@@ -8,7 +8,7 @@ def app():
 
     # Load the CSV file
     csv_path = 'Dashboard/data/2.csv'
-    df = pd.read_csv(csv_path)
+    df = pd.read_csv(csv_path, delimiter=';')
 
     # Convert the DATE column to datetime format
     df['DATE'] = pd.to_datetime(df['DATE'], format='%d/%m/%Y')  # Mengubah ke format datetime
