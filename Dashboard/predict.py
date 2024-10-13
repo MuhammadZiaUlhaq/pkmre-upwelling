@@ -4,10 +4,10 @@ import joblib
 import numpy as np
 from datetime import datetime
 
-# Function to apply custom HTML style to the entire row based on the Predictions column
+# Function to apply custom HTML style to the entire row based on the Prediksi column
 def render_styled_table(dataframe):
     def highlight_row(row):
-        prediction = row['Predictions']
+        prediction = row['Prediksi']
         if prediction == "BERPOTENSI UPWELLING":
             return ['background-color: #FF7F7F; color: black'] * len(row)
         elif prediction == "TIDAK BERPOTENSI UPWELLING":
@@ -20,9 +20,9 @@ def render_styled_table(dataframe):
 # Define a SessionState class for managing state across Streamlit reruns
 class SessionState:
     def __init__(self):
-        self.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
-        self.csv_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M'])
-        self.auto_fill_message_shown = False  # Flag untuk menampilkan pesan auto-fill
+        self.all_data = pd.DataFrame(columns=['DATE', 'Indeks Kejernihan Langit', 'Suhu Pada Ketinggian 2 Meter', 'Curah Hujan', 'Tekanan Permukaan', 'Kecepatan Angin', 'Prediksi'])
+        self.csv_data = pd.DataFrame(columns=['DATE', 'Indeks Kejernihan Langit', 'Suhu Pada Ketinggian 2 Meter', 'Curah Hujan', 'Tekanan Permukaan', 'Kecepatan Angin'])
+        self.auto_fill_message_shown = True  # Flag untuk menampilkan pesan auto-fill
 
 # Initialize state
 if 'session_state' not in st.session_state:
@@ -110,7 +110,7 @@ def app():
     # Display prediction result
     if st.button("Predict Upwelling"):
         # Clear previous predictions
-        state.all_data = pd.DataFrame(columns=['DATE', 'Indeks Kejernihan Langit', 'Suhu Pada Ketinggian 2 Meter', 'Curah Hujan', 'Tekanan Permukaan', 'Kecepatan Angin', 'Predictions'])
+        state.all_data = pd.DataFrame(columns=['DATE', 'Indeks Kejernihan Langit', 'Suhu Pada Ketinggian 2 Meter', 'Curah Hujan', 'Tekanan Permukaan', 'Kecepatan Angin', 'Prediksi'])
         
         for data in input_data:
             try:
