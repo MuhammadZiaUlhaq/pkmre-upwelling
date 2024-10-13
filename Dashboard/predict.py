@@ -50,6 +50,16 @@ def app():
     # Load data from data.csv
     try:
         state.csv_data = pd.read_csv('Dashboard/data/2.csv', delimiter=';')
+
+        # Rename the columns to match the expected column names
+        state.csv_data.rename(columns={
+            'Indeks Kejernihan Langit': 'ALLSKY_KT',
+            'Suhu Pada Ketinggian 2 Meter': 'T2M',
+            'Curah Hujan': 'PRECTOTCORR',
+            'Tekanan Permukaan': 'PS',
+            'Kecepatan Angin': 'WS10M'
+        }, inplace=True)
+
         state.csv_data['DATE'] = pd.to_datetime(state.csv_data['DATE'], format='%d/%m/%Y')
         state.csv_data['DATE'] = state.csv_data['DATE'].dt.date  # Convert to date only (no time component)
     except Exception as e:
@@ -117,7 +127,7 @@ def app():
                     'PRECTOTCORR': [data['PRECTOTCORR']],
                     'PS': [data['PS']],
                     'WS10M': [data['WS10M']],
-                    'Predictions': hasil_prediksi[0]  # Ambil prediksi sebagai string, bukan list
+                    'Predictions': hasil_prediksi[0]  # Use the first element of the prediction
                 }
 
                 state.all_data = pd.concat([state.all_data, pd.DataFrame(new_data)], ignore_index=True)
