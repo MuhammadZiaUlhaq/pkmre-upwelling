@@ -56,6 +56,15 @@ def app():
         st.error(f"Error loading data.csv: {e}")
         return
 
+    # Rename columns in csv_data
+    state.csv_data.rename(columns={
+        'ALLSKY_KT': 'Indeks Kejernihan Langit',
+        'T2M': 'Suhu Pada Ketinggian 2 Meter',
+        'PRECTOTCORR': 'Curah Hujan',
+        'PS': 'Tekanan Permukaan',
+        'WS10M': 'Kecepatan Angin'
+    }, inplace=True)
+
     # Sidebar inputs for selecting date range
     date_range = st.date_input('Select Date Range', [])
     if len(date_range) != 2:
@@ -73,50 +82,50 @@ def app():
         # Check if data exists for selected date and auto-fill inputs
         if not state.csv_data.empty and selected_date in state.csv_data['DATE'].values:
             row_data = state.csv_data[state.csv_data['DATE'] == selected_date].iloc[0]
-            allsky_kt = row_data['ALLSKY_KT']
-            t2m = row_data['T2M']
-            prectotcorr = row_data['PRECTOTCORR']
-            ps = row_data['PS']
-            ws10m = row_data['WS10M']
+            allsky_kt = row_data['Indeks Kejernihan Langit']
+            t2m = row_data['Suhu Pada Ketinggian 2 Meter']
+            prectotcorr = row_data['Curah Hujan']
+            ps = row_data['Tekanan Permukaan']
+            ws10m = row_data['Kecepatan Angin']
             if not state.auto_fill_message_shown:
                 st.success("Data found, auto-filled the fields.")
                 state.auto_fill_message_shown = True
         else:
             st.warning(f"Data not found for {selected_date_str}. Please input the values manually.")
-            allsky_kt = st.number_input(f'ALLSKY_KT for {selected_date_str}', value=0.00)
-            t2m = st.number_input(f'T2M for {selected_date_str}', value=0.00)
-            prectotcorr = st.number_input(f'PRECTOTCORR for {selected_date_str}', value=0.00)
-            ps = st.number_input(f'PS for {selected_date_str}', value=0.00)
-            ws10m = st.number_input(f'WS10M for {selected_date_str}', value=0.00)
+            allsky_kt = st.number_input(f'Indeks Kejernihan Langit for {selected_date_str}', value=0.00)
+            t2m = st.number_input(f'Suhu Pada Ketinggian 2 Meter for {selected_date_str}', value=0.00)
+            prectotcorr = st.number_input(f'Curah Hujan for {selected_date_str}', value=0.00)
+            ps = st.number_input(f'Tekanan Permukaan for {selected_date_str}', value=0.00)
+            ws10m = st.number_input(f'Kecepatan Angin for {selected_date_str}', value=0.00)
 
         input_data.append({
             'DATE': selected_date_str,
-            'ALLSKY_KT': float(allsky_kt),
-            'T2M': float(t2m),
-            'PRECTOTCORR': float(prectotcorr),
-            'PS': float(ps),
-            'WS10M': float(ws10m)
+            'Indeks Kejernihan Langit': float(allsky_kt),
+            'Suhu Pada Ketinggian 2 Meter': float(t2m),
+            'Curah Hujan': float(prectotcorr),
+            'Tekanan Permukaan': float(ps),
+            'Kecepatan Angin': float(ws10m)
         })
 
     # Display prediction result
     if st.button("Predict Upwelling"):
         # Clear previous predictions
-        state.all_data = pd.DataFrame(columns=['DATE', 'ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M', 'Predictions'])
+        state.all_data = pd.DataFrame(columns=['DATE', 'Indeks Kejernihan Langit', 'Suhu Pada Ketinggian 2 Meter', 'Curah Hujan', 'Tekanan Permukaan', 'Kecepatan Angin', 'Predictions'])
         
         for data in input_data:
             try:
-                input_features = [[data['ALLSKY_KT'], data['T2M'], data['WS10M'], data['PRECTOTCORR'], data['PS']]]
+                input_features = [[data['Indeks Kejernihan Langit'], data['Suhu Pada Ketinggian 2 Meter'], data['Kecepatan Angin'], data['Curah Hujan'], data['Tekanan Permukaan']]]
                 input_array = np.array(input_features)
                 hasil_prediksi = predict(model, input_array)
 
                 # Store prediction result and input data in state or any storage mechanism
                 new_data = {
                     'DATE': [data['DATE']],
-                    'ALLSKY_KT': [data['ALLSKY_KT']],
-                    'T2M': [data['T2M']],
-                    'PRECTOTCORR': [data['PRECTOTCORR']],
-                    'PS': [data['PS']],
-                    'WS10M': [data['WS10M']],
+                    'Indeks Kejernihan Langit': [data['Indeks Kejernihan Langit']],
+                    'Suhu Pada Ketinggian 2 Meter': [data['Suhu Pada Ketinggian 2 Meter']],
+                    'Curah Hujan': [data['Curah Hujan']],
+                    'Tekanan Permukaan': [data['Tekanan Permukaan']],
+                    'Kecepatan Angin': [data['Kecepatan Angin']],
                     'Predictions': hasil_prediksi[0]  # Ambil prediksi sebagai string, bukan list
                 }
 
@@ -140,7 +149,7 @@ def app():
 
     # Format numeric columns to display float with two decimal places
     formatted_data = state.all_data.copy()
-    numeric_columns = ['ALLSKY_KT', 'T2M', 'PRECTOTCORR', 'PS', 'WS10M']
+    numeric_columns = ['Indeks Kejernihan Langit', 'Suhu Pada Ketinggian 2 Meter', 'Curah Hujan', 'Tekanan Permukaan', 'Kecepatan Angin']
 
     for col in numeric_columns:
         formatted_data[col] = formatted_data[col].apply(lambda x: f"{x:.2f}")
