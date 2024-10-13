@@ -49,8 +49,8 @@ def app():
 
         st.header("Model yang Digunakan")
         st.markdown("""
-            #### Model Model Forecast (SVARMA dan Seasonal Autoregresive):
-            Kami menggunakan dua model SVARMA dan Seaonal Autoregresive untuk meramalkan indicator iklim pada berbagai interval waktu:            
+            #### Model Forecast (Seasonal VARMA dan Vector Autoregresive):
+            Kami menggunakan dua model Seasonal VARMA dan  Vector Autoregresive untuk meramalkan indicator iklim pada berbagai interval waktu:            
             - Indeks Kejernihan Langit : MSE = 0,0526, RMSE = 0,2295, MAE = 0,1815
             - Suhu Pada Ketinggian 2 Meter: MSE = 0,0341, RMSE = 0,1847, MAE = 0,1514
             - Curah Hujan: MSE = 0,0738, RMSE = 0,2721, MAE = 0,2191
@@ -163,8 +163,8 @@ def app():
 
         st.header("Models Used")
         st.markdown("""
-            #### Forecasting Models (SVARMA and Seasonal Autoregressive):
-            We use two models, SVARMA and Seasonal Autoregressive, to forecast climate indicators at various time intervals:
+            #### Forecasting Models (Seasonal VARMA and Vector Autoregressive):
+            We use two models, Seasonal VARMA and Vector Autoregressive, to forecast climate indicators at various time intervals:
             - All sky insolation clearness index: MSE = 0,0526, RMSE = 0,2295, MAE = 0,1815
             - Temperature: MSE = 0,0341, RMSE = 0,1847, MAE = 0,1514
             - Precipitation: MSE = 0,0738, RMSE = 0,2721, MAE = 0,2191
