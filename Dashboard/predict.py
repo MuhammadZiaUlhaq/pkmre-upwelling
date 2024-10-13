@@ -126,7 +126,7 @@ def app():
                     'Curah Hujan': [data['Curah Hujan']],
                     'Tekanan Permukaan': [data['Tekanan Permukaan']],
                     'Kecepatan Angin': [data['Kecepatan Angin']],
-                    'Predictions': hasil_prediksi[0]  # Ambil prediksi sebagai string, bukan list
+                    'Prediksi': hasil_prediksi[0]  # Ambil prediksi sebagai string, bukan list
                 }
 
                 state.all_data = pd.concat([state.all_data, pd.DataFrame(new_data)], ignore_index=True)
