@@ -49,7 +49,7 @@ def app():
         # Model Section
         st.header("Model yang Digunakan")
         st.markdown("""
-            ### Model Forecast (Seasonal VARMA dan Vector Autoregresive
+            ### Model Forecast (Seasonal VARMA dan Vector Autoregresive)
             Kami menggunakan dua model Seasonal VARMA dan Vector Autoregresive untuk meramalkan indikator iklim pada berbagai interval waktu:
         """)
         st.write('#### Seasonal VARMA')
