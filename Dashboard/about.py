@@ -76,6 +76,52 @@ def app():
         - 𝑝       : orde dari model VAR
         - 𝛼𝑡      : vektor residual white-noise
         """)
+        
+        st.markdown("""
+            ### Model Klasifikasi Support Vector Machine (SVM)
+            Kami menggunakan model Klasifikasi Support Vector Machine (SVM) untuk mengklasifikasikan pottensi Upwelling
+        """)
+        
+        st.write('#### Kernel Linear')
+        # Linear kernel formula
+        st.latex(r'''
+                    K(x_i, x) = x_i^T x
+                    ''')
+        
+        st.markdown(""" 
+        ###### Keterangan:
+        - 𝑥𝑖 = Vektor data training
+        - 𝑥 = Vektor data testing
+        """)
+        
+        st.write('#### Kernel RBF')
+        # Linear kernel formula
+        st.latex(r'''
+                    K(x_i, x) = \exp\left(- \gamma \left| x_i^T x \right|^2 \right)
+                    ''')
+        
+        st.markdown(""" 
+        ###### Keterangan:
+        - 𝑥𝑖 = Vektor data training
+        - 𝑥 = Vektor data testing
+        - 𝛾= gamma
+        """)
+        
+        st.write('#### Kernel Polynomial')
+        # Linear kernel formula
+        st.latex(r'''
+                    K(x_i, x) = (\gamma \cdot x_i^T x + r)^p
+                    ''')
+        
+        st.markdown(""" 
+        ###### Keterangan:
+        - 𝑥𝑖 = Vektor data training
+        - 𝑥 = Vektor data testing
+        - 𝛾= gamma
+        - 𝑟= coef ()
+        - 𝑝 = degree
+        """)
+
 
         # Evaluation Metrics
         st.write('### Metrik Evaluasi')
@@ -119,33 +165,57 @@ def app():
         col_4, col_5 = st.columns(2)
         with col_4:
             st.markdown("""
-                - **Muhammad Zia Ulhaq**
+                - ##### Muhammad Zia Ulhaq
+                                """)
+            st.image('zz.png')
+            st.markdown("""
                     - Email   : [ziaswatfbicia@gmail.com](mailto:ziaswatfbicia@gmail.com) 
                     - LinkedIn: [Muhammad Zia Ulhaq](https://www.linkedin.com/in/muhammad-zia-ulhaq-8373112b9/) 
-
-                - **Zahra Ifma Aziza**
+                                    """)
+            st.markdown("""
+                - ##### Zahra Ifma Aziza
+                                """)
+            st.image('z.png')
+            st.markdown("""
                     - Email   : [zahraifmaa@gmail.com](mailto:zahraifmaa@gmail.com) 
                     - LinkedIn: [Zahra Ifma Aziza](https://www.linkedin.com/in/zahra-ifma-aziza/) 
-
-                - **Muhammad Farid**
+                    """)
+            st.markdown("""
+                - ##### Muhammad Farid
+                                """)
+            st.image('f.png')
+            st.markdown("""
                     - Email   : [mhdfaridz93@gmail.com](mailto:mhdfaridz93@gmail.com) 
                     - LinkedIn: [Muhammad Farid](https://www.linkedin.com/in/mhd-farid/)
             """)
         with col_5:
             st.markdown("""
-                - **Fakhrus Syakir**
+                - ##### Fakhrus Syakir
+                """)
+            st.image('s.png')
+            st.markdown("""
                     - Email   : [fakhroosyakir@gmail.com](mailto:fakhroosyakir@gmail.com) 
                     - LinkedIn: [Fakhrus Syakir](https://www.linkedin.com/in/fakhrus-syakir-65bb72205/) 
-
-                - **Teuku Muhammad Faiz Nuzullah**
+                    """)
+                    
+            st.markdown("""
+                - ##### Teuku Muhammad Faiz Nuzullah
+                """)
+            st.image('p.png')
+            st.markdown("""
                     - Email   : [faiznuzullah@gmail.com](mailto:faiznuzullah@gmail.com) 
                     - LinkedIn: [Teuku Muhammad Faiz Nuzullah](https://www.linkedin.com/in/teuku-muhammad-f-4a906a239) 
-
-                - **Novi Reandy Sasmita, S.Si., M.Sc.**
+                    """)
+            st.markdown("""
+                - #####  Novi Reandy Sasmita, S.Si., M.Sc.
+                """)
+            st.image('g.png', use_column_width=True)
+            st.markdown("""
                     - Email   : [novireandys@usk.ac.id](mailto:novireandys@usk.ac.id) 
                     - LinkedIn: [Novi Reandy Sasmita](https://www.linkedin.com/in/novi-reandy-sasmita-93371a72/)
                     - Website : [Novi Reandy Sasmita's Website](https://www.reandy.info)
             """)
+
 
     else:
         # English content
@@ -217,6 +287,51 @@ def app():
         - 𝑝       : order of the VAR model
         - 𝛼𝑡      : vector of white-noise residuals
         """)
+        
+        st.markdown("""
+            ### Model Klasifikasi Support Vector Machine (SVM)
+            We use Classification model Support Vector Machine (SVM) for classified Upwelling potensial
+        """)
+        
+        st.write('#### Kernel Linear')
+        # Linear kernel formula
+        st.latex(r'''
+                    K(x_i, x) = x_i^T x
+                    ''')
+        
+        st.markdown(""" 
+        ###### Keterangan:
+        - 𝑥𝑖 = Vektor data training
+        - 𝑥 = Vektor data testing
+        """)
+        
+        st.write('#### Kernel RBF')
+        # Linear kernel formula
+        st.latex(r'''
+                    K(x_i, x) = \exp\left(- \gamma \left| x_i^T x \right|^2 \right)
+                    ''')
+        
+        st.markdown(""" 
+        ###### Keterangan:
+        - 𝑥𝑖 = Vektor data training
+        - 𝑥 = Vektor data testing
+        - 𝛾= gamma
+        """)
+        
+        st.write('#### Kernel Polynomial')
+        # Linear kernel formula
+        st.latex(r'''
+                    K(x_i, x) = (\gamma \cdot x_i^T x + r)^p
+                    ''')
+        
+        st.markdown(""" 
+        ###### Keterangan:
+        - 𝑥𝑖 = Vektor data training
+        - 𝑥 = Vektor data testing
+        - 𝛾= gamma
+        - 𝑟= coef ()
+        - 𝑝 = degree
+        """)
 
         # Evaluation Metrics
         st.write('### Evaluation Metrics')
@@ -238,7 +353,7 @@ def app():
         """)
 
         # Social Media
-        st.header("Social Media")
+        st.header("Sosial Media")
         st.markdown("""
             <a href="https://www.instagram.com/pkmre_upwelling?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:30px;height:30px;">
@@ -253,38 +368,60 @@ def app():
             """, unsafe_allow_html=True)
 
         # Contact
-        st.header("Contact")
+        st.header("Kontak")
         st.markdown("""
             If you have any questions or feedback, please contact us:
         """)
         col_4, col_5 = st.columns(2)
         with col_4:
             st.markdown("""
-                - **Muhammad Zia Ulhaq**
+                - ##### Muhammad Zia Ulhaq
+                                """)
+            st.image('zz.png')
+            st.markdown("""
                     - Email   : [ziaswatfbicia@gmail.com](mailto:ziaswatfbicia@gmail.com) 
                     - LinkedIn: [Muhammad Zia Ulhaq](https://www.linkedin.com/in/muhammad-zia-ulhaq-8373112b9/) 
-
-                - **Zahra Ifma Aziza**
+                                    """)
+            st.markdown("""
+                - ##### Zahra Ifma Aziza
+                                """)
+            st.image('z.png')
+            st.markdown("""
                     - Email   : [zahraifmaa@gmail.com](mailto:zahraifmaa@gmail.com) 
                     - LinkedIn: [Zahra Ifma Aziza](https://www.linkedin.com/in/zahra-ifma-aziza/) 
-
-                - **Muhammad Farid**
+                    """)
+            st.markdown("""
+                - ##### Muhammad Farid
+                                """)
+            st.image('f.png')
+            st.markdown("""
                     - Email   : [mhdfaridz93@gmail.com](mailto:mhdfaridz93@gmail.com) 
                     - LinkedIn: [Muhammad Farid](https://www.linkedin.com/in/mhd-farid/)
             """)
         with col_5:
             st.markdown("""
-                - **Fakhrus Syakir**
+                - ##### Fakhrus Syakir
+                """)
+            st.image('s.png')
+            st.markdown("""
                     - Email   : [fakhroosyakir@gmail.com](mailto:fakhroosyakir@gmail.com) 
                     - LinkedIn: [Fakhrus Syakir](https://www.linkedin.com/in/fakhrus-syakir-65bb72205/) 
-
-                - **Teuku Muhammad Faiz Nuzullah**
+                    """)
+                    
+            st.markdown("""
+                - ##### Teuku Muhammad Faiz Nuzullah
+                """)
+            st.image('p.png')
+            st.markdown("""
                     - Email   : [faiznuzullah@gmail.com](mailto:faiznuzullah@gmail.com) 
                     - LinkedIn: [Teuku Muhammad Faiz Nuzullah](https://www.linkedin.com/in/teuku-muhammad-f-4a906a239) 
-
-                - **Novi Reandy Sasmita, S.Si., M.Sc.**
+                    """)
+            st.markdown("""
+                - #####  Novi Reandy Sasmita, S.Si., M.Sc.
+                """)
+            st.image('g.png', use_column_width=True)
+            st.markdown("""
                     - Email   : [novireandys@usk.ac.id](mailto:novireandys@usk.ac.id) 
                     - LinkedIn: [Novi Reandy Sasmita](https://www.linkedin.com/in/novi-reandy-sasmita-93371a72/)
                     - Website : [Novi Reandy Sasmita's Website](https://www.reandy.info)
             """)
-
