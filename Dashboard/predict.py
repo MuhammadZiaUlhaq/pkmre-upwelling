@@ -42,6 +42,7 @@ def predict(model, input_features):
 # Function to display the prediction interface
 def app():
     st.title("Upwelling Prediction")
+    st.write("#### Pastikan Menekan Tombol Predict Upwelling Saat Memprediksi")
 
     # Load the model
     model_path = "Dashboard/data/model_klasifikasi.pkl"
