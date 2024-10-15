@@ -144,6 +144,7 @@ def app():
                 - **Novi Reandy Sasmita, S.Si., M.Sc.**
                     - Email   : [novireandys@usk.ac.id](mailto:novireandys@usk.ac.id) 
                     - LinkedIn: [Novi Reandy Sasmita](https://www.linkedin.com/in/novi-reandy-sasmita-93371a72/)
+                    - Website : [Novi Reandy Sasmita's Website](https://www.reandy.info)
             """)
 
     else:
