@@ -50,13 +50,13 @@ def app():
         st.header("Model yang Digunakan")
         st.markdown("""
             ### Model Forecast (Seasonal VARMA dan Vector Autoregresive)
-            Kami menggunakan dua model Seasonal VARMA dan Vector Autoregresive untuk meramalkan indikator iklim pada berbagai interval waktu:
+            Kami menggunakan dua model Seasonal VARMA dan Vector Autoregresive untuk meramalkan indikator iklim pada berbagai interval waktu
         """)
-        st.write('#### Seasonal VARMA')
+        """st.write('#### Seasonal VARMA')
         st.latex(r'\Phi(B^s)\phi(B)Y_t = \Theta(B^S)\theta(B)\alpha_t')
 
         st.markdown(""" 
-        ###### Keterangan:
+        """###### Keterangan:
         - 𝑌𝑡        : vektor deret waktu pada periode ke-t,
         - B          : operator pembeda,
         - 𝛼𝑡        : vektor residual white-noise,
@@ -64,22 +64,22 @@ def app():
         - 𝑞(𝐵)      : matriks polinomial MA,
         - Φ𝑃(𝐵)𝑠    : matriks polinomial AR musiman dan 
         - Θ𝑄(𝐵)𝑠    : matriks polinomial MA musiman
-        """)
+        """"""
 
         st.write('#### Vector Autoregressive (VAR)')
         st.latex(r'\Phi(B^s)\phi(B)Y_t = \Theta(B^S)\theta(B)\alpha_t')
 
         st.markdown("""
-        ###### Keterangan:
+        """###### Keterangan:
         - 𝑌𝑡      : vektor dari variabel endogen pada waktu t
         - 𝐴𝑖      : matriks koefisien untuk lag i
         - 𝑝       : orde dari model VAR
         - 𝛼𝑡      : vektor residual white-noise
-        """)
+        """
         
-        st.markdown("""
+        """st.markdown("""
             ### Model Klasifikasi Support Vector Machine (SVM)
-            Kami menggunakan model Klasifikasi Support Vector Machine (SVM) untuk mengklasifikasikan pottensi Upwelling
+            #Kami menggunakan model Klasifikasi Support Vector Machine (SVM) untuk mengklasifikasikan pottensi Upwelling
         """)
         
         st.write('#### Kernel Linear')
@@ -89,38 +89,38 @@ def app():
                     ''')
         
         st.markdown(""" 
-        ###### Keterangan:
+        """###### Keterangan:
         - 𝑥𝑖 = Vektor data training
         - 𝑥 = Vektor data testing
-        """)
+        """
         
-        st.write('#### Kernel RBF')
+        """st.write('#### Kernel RBF')
         # Linear kernel formula
         st.latex(r'''
                     K(x_i, x) = \exp\left(- \gamma \left| x_i^T x \right|^2 \right)
                     ''')
         
         st.markdown(""" 
-        ###### Keterangan:
+        """###### Keterangan:
         - 𝑥𝑖 = Vektor data training
         - 𝑥 = Vektor data testing
         - 𝛾= gamma
-        """)
+        """
         
-        st.write('#### Kernel Polynomial')
+        """st.write('#### Kernel Polynomial')
         # Linear kernel formula
         st.latex(r'''
                     K(x_i, x) = (\gamma \cdot x_i^T x + r)^p
                     ''')
         
         st.markdown(""" 
-        ###### Keterangan:
+        """###### Keterangan:
         - 𝑥𝑖 = Vektor data training
         - 𝑥 = Vektor data testing
         - 𝛾= gamma
         - 𝑟= coef ()
         - 𝑝 = degree
-        """)
+        """
 
 
         # Evaluation Metrics
@@ -263,11 +263,11 @@ def app():
             #### Forecasting Models (Seasonal VARMA and Vector Autoregressive)
             We use two models, Seasonal VARMA and Vector Autoregressive, to forecast climate indicators at various time intervals:
         """)
-        st.write('#### Seasonal VARMA')
+        """st.write('#### Seasonal VARMA')
         st.latex(r'\Phi(B^s)\phi(B)Y_t = \Theta(B^S)\theta(B)\alpha_t')
 
         st.markdown(""" 
-        ###### Explanation:
+        """###### Explanation:
         - 𝑌𝑡        : vector of time series at time t,
         - B          : difference operator,
         - 𝛼𝑡        : vector of white-noise residuals,
@@ -275,22 +275,22 @@ def app():
         - 𝑞(𝐵)      : MA polynomial matrix,
         - Φ𝑃(𝐵)𝑠    : seasonal AR polynomial matrix
         - Θ𝑄(𝐵)𝑠    : seasonal MA polynomial matrix
-        """)
+        """
 
-        st.write('#### Vector Autoregressive (VAR)')
+        """st.write('#### Vector Autoregressive (VAR)')
         st.latex(r'\Phi(B^s)\phi(B)Y_t = \Theta(B^S)\theta(B)\alpha_t')
 
         st.markdown("""
-        ###### Explanation:
+        """###### Explanation:
         - 𝑌𝑡      : vector of endogenous variables at time t
         - 𝐴𝑖      : coefficient matrix for lag i
         - 𝑝       : order of the VAR model
         - 𝛼𝑡      : vector of white-noise residuals
-        """)
+        """
         
-        st.markdown("""
+        """st.markdown("""
             ### Model Klasifikasi Support Vector Machine (SVM)
-            We use Classification model Support Vector Machine (SVM) for classified Upwelling potensial
+            #We use Classification model Support Vector Machine (SVM) for classified Upwelling potensial
         """)
         
         st.write('#### Kernel Linear')
@@ -300,38 +300,38 @@ def app():
                     ''')
         
         st.markdown(""" 
-        ###### Keterangan:
+        """###### Keterangan:
         - 𝑥𝑖 = Vektor data training
         - 𝑥 = Vektor data testing
-        """)
+        """
         
-        st.write('#### Kernel RBF')
+        """st.write('#### Kernel RBF')
         # Linear kernel formula
         st.latex(r'''
                     K(x_i, x) = \exp\left(- \gamma \left| x_i^T x \right|^2 \right)
                     ''')
         
         st.markdown(""" 
-        ###### Keterangan:
+        """###### Keterangan:
         - 𝑥𝑖 = Vektor data training
         - 𝑥 = Vektor data testing
         - 𝛾= gamma
-        """)
+        """
         
-        st.write('#### Kernel Polynomial')
+        """st.write('#### Kernel Polynomial')
         # Linear kernel formula
         st.latex(r'''
                     K(x_i, x) = (\gamma \cdot x_i^T x + r)^p
                     ''')
         
         st.markdown(""" 
-        ###### Keterangan:
+        """###### Keterangan:
         - 𝑥𝑖 = Vektor data training
         - 𝑥 = Vektor data testing
         - 𝛾= gamma
         - 𝑟= coef ()
         - 𝑝 = degree
-        """)
+        """
 
         # Evaluation Metrics
         st.write('### Evaluation Metrics')
